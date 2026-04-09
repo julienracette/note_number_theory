@@ -1,0 +1,12 @@
+\section{Dirichlet Series}
+
+\begin{theorem}[Euler product]\label{thm:euler-product}
+    Let $f:\mathbb{N} \to \mathbb{C}$ a bounded multiplicative function then
+    \begin{equation}
+        \sum_{n=1}^{\infty}\frac{a(n)}{n^s} = \prod_{p}\sum_{k=0}^{\infty}\frac{a(p^k)}{p^{ks}} =  \text{ for } \Re(s) > 1.
+    \end{equation}
+    If $f$ is completely multiplicative then we get the geometric series and we can conclude the following:
+    \begin{equation}
+        \sum_{n=1}^{\infty}\frac{a(n)}{n^s} = \prod_{p}\frac{1}{1-f(p) p^{-s}} = \prod_p \left(1- \frac{a(p)}{p^s }\right)^{-1}
+    \end{equation}
+\end{theorem}

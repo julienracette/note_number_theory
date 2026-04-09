@@ -1,0 +1,114 @@
+\section{Dirichlet Character}
+
+
+
+\subsection{Definition and basic properties}
+\begin{definition}[Dirichlet character]\label{def:dirchar}
+    We say that $\chi : \mathbb{Z} \to \mathbb{C}$ is a Dirichlet character $\mod m$ if 
+    \begin{enumerate}[label={\upshape\roman*)}]
+        \item\label{def:dirchar:multiplicity}$\chi(ab) = \chi(a)\chi(b), \text{ } \forall a,b \in \mathbb{Z}$\\
+        \item\label{def:dirchar:zero_condition}$\chi(a) =0 \Leftrightarrow (a,m) \neq1$\\
+        \item\label{def:dirchar:periodicity}$\chi(a+m) = \chi(a)$
+    \end{enumerate}
+\end{definition}
+Using \cref{def:dirchar} \ref{def:dirchar:multiplicity}, we obtain the following: $\chi(1)= \chi(1\cdot1) = \chi(1)\chi(1) $ which implies $\chi(1)=1$.
+
+\begin{definition}[Principal character]
+    We define 
+    $$\chi_0(n):= 
+    \begin{cases}
+        1 \text{ if } (n,m)=1\\
+        0 \text{ if } (n,m) \ge 1
+    \end{cases}$$
+    The principal character$\pmod m$.
+\end{definition}
+We usually denote the non-principal character with $\psi$.
+
+\begin{proposition}[Basic properties of Dirichlet character]
+    \label{prop:number_dir_char}
+    There exist $\phi(m)$ distinct Dirichlet characters $\pmod m$ and the set of all distincts characters $\pmod m$ form a finite abelian group  under multiplication denoted $\widehat{\left(\mathbb{Z}/m \mathbb{Z}\right)}^{\times}$. We also have $\widehat{\left(\mathbb{Z}/m \mathbb{Z}\right)}^{\times} \cong\left(\mathbb{Z}/m \mathbb{Z}\right)^{\times}$.
+\end{proposition}
+\begin{proof}
+    Let $G$ be the set of Dirichlet character  $\pmod m$, we take $\chi,\chi' \in G$ and $a \neq 0\in (\mathbb{Z}/m \mathbb{Z})^\times$.  We can clearly see that if we provide $G$ with a multiplication defined as $\chi \chi'(a) := \chi(a)\chi'(a)$ using the principal character as the identity. We defind $\chi^{-1}$ using the fact that there exist: $a^{-1} \in (\mathbb{Z}/m \mathbb{Z})$ such that $a a^{-1} \equiv 1 \pmod m$ and therefore $\chi(a) \chi(a^{-1}) = \chi(1) =1$. We can take $\chi^{-1}(a) = \chi(a^{-1})$ and for $\beta \in \mathbb{Z}$, we have that:
+    \begin{equation*}
+        \chi(\beta)\chi^{-1}(\beta) = \begin{cases}
+            0 &\text{ if } (\beta,m)\ge1\\
+            1 &\text{ if } (\beta,m)=1
+            \end{cases} = \chi_0(\beta).
+    \end{equation*}
+    We observe that $a^{\phi(m)-1} \equiv 1 \pmod m $ and  using \ref{def:dirchar:multiplicity} of \cref{def:dirchar}, we get $\chi(a)^{\phi(m)-1} = \chi(1) = 1$, which implies that $\chi(a)$ is a root of the unity.
+\end{proof}
+
+
+
+
+\subsection{Orthogonality relation}
+To prove the orthogonality relation we need the following lemma:
+\begin{lemma}\label{lem:existence_dir_char}\leavevmode
+    \begin{enumerate}[label={\upshape\roman*)}]
+        \item Let $m\ge 2$ and $a \in \mathbb{Z}$ such that $(a,m)=1$ with $a\not \equiv 1 \pmod m$, there exist $\chi \pmod m$ such that $\chi(a) \neq 1$
+        \item For $m\ge 2$, let  $\chi \text{ be a character }\pmod m  \text{ where }\chi \neq \chi_0$, then there exist $a \in \left(\mathbb{Z}/m\mathbb{Z}\right)$ such that $\chi(a)\neq 0,1$
+    \end{enumerate}
+\end{lemma}
+\begin{proof}\leavevmode
+    \begin{enumerate}[label={\upshape\roman*)}]
+        \item 
+        \item 
+    \end{enumerate}
+\end{proof}
+
+\begin{theorem}[Orthogonality relation of Dirichlet character]\leavevmode
+    \label{thm:orthogonality_rel}
+    \begin{enumerate}[label={\upshape\roman*)}]
+        \item $\displaystyle\sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)}^{} \chi(a) = \begin{cases}
+                \phi(m)  &\text{ if } \chi= \chi_0\\
+                0 &\text{ if } \chi \neq \chi_0
+            \end{cases}$
+        \item\label{item:orthogonality_rel_item:ii} $\displaystyle\sum_{\chi \mod m}^{} \chi(a) = \begin{cases}
+                \phi(m) &\text{ if } a \equiv 1 \pmod m \\
+                0 &\text{ if } a \not\equiv 1 \pmod m
+            \end{cases}$
+    \end{enumerate}
+\end{theorem}
+
+
+
+\begin{proof}\leavevmode
+    \begin{enumerate}[label={\roman*)}]
+        \item\label{1}Let $\chi = \chi_0$. We know that the number of element $a$ in $\left(\mathbb{Z} / m \mathbb{Z}\right)^{\times} $ such that $(a,m)=1$ is $\phi(m)$. We then have:
+            \begin{equation*}
+                \sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}}^{} \chi_0(a)=  \sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)}^{} \mathds{1}_{(a,m)=1} = \phi(m)
+            \end{equation*}
+            Now suppose $\chi \neq \chi_0$ and, by \cref{lem:existence_dir_char}, we take $\alpha \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}$ such that $(\alpha,m) = 1$ and $\chi(\alpha) \neq 1$. We have the following:
+            \begin{equation}\label{eq:multiplicity_dir_char}
+                \sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}}^{} \chi(\alpha)\chi(a) = \sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}}^{} \chi(\alpha a).
+            \end{equation}
+            We can only keeps the $a \in \left(\mathbb{Z} / m \mathbb{Z}\right)$ such that $(a,m)$ because otherwise  $\chi(a) =0$. If we take the all residues classes $\pmod m$ and we multiply it by coprime number to $m$ we get back all the residues classes. This implies:
+            \begin{equation}\label{eq:complete_set_residu}
+                \sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}}^{} \chi(\alpha a)= \sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}}^{} \chi(a).
+    \end{equation}
+    Then we can solve the following equation using \cref{eq:multiplicity_dir_char} and \cref{eq:complete_set_residu}:
+    \begin{equation*}
+        (\chi(\alpha)-1)\sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}}^{} \chi( a) = 0 
+    \end{equation*}
+    Since we took $\alpha$ such that $\chi(\alpha) \neq 1 $ we get:
+    \begin{equation*}
+        \sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^\times}^{} \chi( a)= 0.
+    \end{equation*}
+\item Let $a \in \left(\mathbb{Z}/m\mathbb{Z}\right)$ such that $a \equiv 1 \pmod m$ , then by \cref{prop:number_dir_char} we have:
+        \begin{equation*}
+            \sum_{\chi \pmod m}^{} \chi(1) = \phi(m)
+        \end{equation*}
+        Now suppose $a\not \equiv 1 \pmod m$. By \cref{lem:existence_dir_char}, there exist $\chi'$ such that $\chi^*(a) \neq 1$. We use the same idea as in \ref{1}:
+        \begin{equation*}
+            \sum_{\chi \in \widehat{\left(\mathbb{Z}/m \mathbb{Z}\right)}}^{} \chi' \chi(a)=\sum_{\chi \in \widehat{\left(\mathbb{Z}/m \mathbb{Z}\right)}}^{}  \chi(a).
+        \end{equation*}
+    \end{enumerate}
+\end{proof}
+We can slightly change \ref{item:orthogonality_rel_item:ii} by posing $a = \alpha \beta^{-1}$ to get an equation that will get more usefull later on: 
+\begin{equation}\label{eq:orthogonality_rel_special_case}
+    \sum_{\chi \mod m}^{} \chi(\alpha \beta^{-1}) =\sum_{\chi \mod m}^{} \chi(\alpha ) \overline\chi(\beta) =\begin{cases}
+                \phi(m) &\text{ if } \alpha \equiv \beta \pmod m \\
+                0 &\text{ if } \alpha \not\equiv \beta \pmod m
+            \end{cases}.
+\end{equation}

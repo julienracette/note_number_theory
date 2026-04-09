@@ -1,0 +1,128 @@
+\section{Dirichlet's Theorem on Arithmetic Progressions}
+\subsection{Proof of the theorem}
+\begin{theorem}[Dirichlet]\label{thm:theorem_dirichlet}
+    Let $a,q \in \mathbb{N}$ with $(a,q)=1$, then:
+    \begin{equation*}
+        \sum_{\substack{p\le x \\ p \equiv a (q)}}^{}\frac{1}{p}=  \frac{\log_2 x}{\phi(q)} + O(1)  .
+    \end{equation*}
+\end{theorem}
+\begin{lemma}\label{lemma:lemma_dirichlet_theorem}
+    Let $\sigma = 1 + \frac{1}{\log x}$ and $f:\mathbb{N} \to \mathbb{C}$ such that $\norm{f(n)}\le 1$, then 
+    \begin{equation*}
+        \sum_{p \text{ prime}} \frac{f(p)}{p^\sigma} = \sum_{\substack{p \le x\\ p \text{ prime}}} \frac{f(p)}{p} + O(1)
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+     We can say that :
+    \begin{equation*}
+        \sum_{p \text{ prime }}^{}\frac{f(p)}{p^\sigma} = \sum_{\substack{p \text{ prime } \\ p\le x}}^{} \frac{f(p)}{p^\sigma} +  \sum_{\substack{p \text{ prime } \\ p> x}}^{}\frac{f(p)}{p^\sigma}
+    \end{equation*}
+    First, we evaluate the tail of the sum. We use the fact that $\norm{f(n)}\le 1$:
+    \begin{equation*}
+        \norm{\sum_{p>x}^{} \frac{f(p)}{p^{\sigma}}}\le \sum_{p>x}^{} \frac{1}{p^\sigma}
+    \end{equation*}
+    We use Abel formula, (\cref{thm:Abel_Summation_formula}), then we integrate by part to get:
+    \begin{equation*}
+        \sum_{p>x}^{} \frac{1}{p^\sigma} = \int_{x }^{\infty  }\frac{1}{t^{\sigma}}d\pi(t) = \left[\pi(t)\frac{1}{t^\sigma}\right]^{\infty}_{t=x}  +  \int_{x }^{\infty }\pi(t)\frac{\sigma}{t^{\sigma+1}}dt
+    \end{equation*} 
+    Now, we want to show that $\left[\pi(t)\frac{1}{t^\sigma}\right]^{\infty}_{t=x}$ is $O(1)$. Using the Chebyshev Bound (\cref{thm:chebyshev}), we have that: 
+    \begin{equation*}
+        \lim_{t \to \infty}\frac{\pi(t)}{t^\sigma} - \frac{\pi(x)}{x^\sigma} \ll \lim_{t \to \infty} \frac{1}{t^{\frac{1}{\log x } }\log t} + \frac{\pi(x)}{x^\sigma} \ll \frac{1}{x^{\frac{1}{\log x } }\log x} \ll 1
+    \end{equation*}
+    We now evaluate the integral. We get that:
+    \begin{equation*}
+               \int_{x }^{\infty }\pi(t)\frac{\sigma}{t^{\sigma+1}}dt \ll \int_{x }^{\infty }\frac{\sigma}{t^{\sigma}\log t}dt
+    \end{equation*}
+    We have that $t> x$ which implies that $\log t > \log x$ and $\frac{1}{\log x} > \frac{1}{ \log t}$. We use this substitution and the fact that $ \sigma=1 + \frac{1}{\log x} \ll 1$ to find that:
+    \begin{equation*}
+             \sigma  \int_{x }^{\infty }\frac{1}{t^{\sigma}\log t}dt \ll   \int_{x }^{\infty }\frac{1}{t^{\sigma}\log x}dt \ll 1
+    \end{equation*}
+    and thus:
+    \begin{equation}\label{eq:lemma_dirichlet_theorem_first_part}
+        \sum_{p < x}^{}\frac{f(p)}{p^\sigma} \ll 1
+    \end{equation}
+    We then need to show that:
+    \begin{equation}\label{eq:lemma_dirichlet_theorem_second_part}
+        \sum_{p\le x}^{}\frac{f(p)}{p^\sigma} = \sum_{p \le x}^{}\frac{f(p)}{p} + O(1)
+    \end{equation}
+    Let's notice that:
+    \begin{equation*}
+        \sum_{p \le x}^{}\frac{f(p)}{p^\sigma} = \sum_{p \le x}^{}\frac{f(p)p^{1-\sigma}-f(p)+ f(p)}{p} = \sum_{p \le x}^{}\frac{f(p)}{p} + \sum_{p \le x}^{} f(p)\frac{p^{1-\sigma}-1}{p}
+    \end{equation*}
+    We want to show that the sum on the right is absolutely convergent. Using the fact that $\norm{f(x)}\le 1$, passing to the exponential and using the relation $1-e^{-u} \le u$, we have the following:
+    \begin{equation*}
+        \norm{ \sum_{p \le x}^{} f(p)\frac{p^{1-\sigma}-1}{p} } \le\sum_{p \le x}^{} \frac{1-p^{1-\sigma}}{p} = \sum_{ p \le x}^{}\frac{1 - e^{\frac{-\log p}{\log x}}}{p} \le \frac{1}{\log x}\sum_{ p \le x}^{}\frac{\log p}{p }    .
+    \end{equation*}
+    Using the first Merten's estimate, \cref{thm:Mertens}, we have
+    \begin{equation*}
+        \frac{1}{\log x}\sum_{ p \le x}^{}\frac{\log p}{p } = \frac{1}{\log x }\left(\log x + O(1)\right) = O(1)
+    \end{equation*}
+    We have shown \cref{eq:lemma_dirichlet_theorem_second_part}. Combining this result with \cref{eq:lemma_dirichlet_theorem_first_part}, we can conclude.
+\end{proof}
+
+
+
+
+
+
+
+\begin{proof}[Proof of \Cref{thm:theorem_dirichlet}]
+    Let $s \in \mathbb{C}$ such that $\Re(s) > 1$ and $\chi$ a non-trivial character $\pmod q$. We start by using the Euler product the same way as \cref{eq:L-function_euler_product} and we take the $\log$ on both sides:
+\begin{equation*}
+    \log L(s,\chi)= - \sum_{p \text{ prime }}\log\left(1-\frac{\chi(p)}{p^s}\right)
+\end{equation*}
+Using the Taylor expansion of  $\log(1-x)$, we get:
+\begin{equation}
+\log L(s,\chi)=\sum_{p \text{ prime }} \frac{\chi(p)}{p^s} + O\left( \frac{\chi(p)}{p^{2s}}^2\right)  =\log L(s,\chi)=  \sum_{p \text{ prime }} \frac{\chi(p)}{p^{s}} + O(1)
+\end{equation}
+
+Now, let $s=1 + \log x$ we can bound the tail using \cref{lemma:lemma_dirichlet_theorem}, since $\norm{\chi(p)} \le 1$ to get:
+\begin{equation*}
+    \log L(s,\chi)=   \sum_{\substack{ p\le x\\ p \text{ prime}}}\frac{\chi(p)}{p} + O(1)
+\end{equation*}
+\Cref{thm:analytic_continuation_L-function} tells us that for $\chi$ non-trivial, $L(s,\chi)$ is continuous for $\Re(s)>0$. Therefore it is continuous at $s=1$. We can deduce from this fact that 
+\begin{equation*}
+    L(\sigma,\chi) \xrightarrow{\sigma \to 1^+} L(1,\chi) 
+\end{equation*}
+and so 
+\begin{equation*}
+    \log L\left(1+\frac{1}{\log x},\chi \right)   = \log L(1,\chi) + O(1). 
+\end{equation*}
+Since we set $\chi \pmod q$ to be non-trivial,by \cref{thm:L-function_neq_0_non-trivial}, we have that $L(1,\chi) \neq 0$ and therefore $\log L(1,\chi) = O(1)$. We get that exactly what we wanted :
+\begin{equation}\label{eq:sum_non_principal_bound}
+    \sum_{\substack{ p\le x\\ p \text{ prime}}}\frac{\chi(p)}{p} = \log L(1+\frac{1}{\log x},\chi) +O(1) = \log L(1,\chi) + O(1) = O(1)
+\end{equation}
+We will conclude from this fact.
+We have :
+\begin{equation*}
+\sum_{\substack{p \text{ prime } \\ p \le x \\ p \equiv a (q)}} \frac{1}{p} = \sum_{\substack{ n \le x \\ n \equiv a (q)}} \frac{\mathbb{\mathds{1}}_{n \text{ prime}}}{n}
+\end{equation*}
+Since $(a,q)=  1$, we can use the orthogonality relation (\cref{eq:orthogonality_rel_special_case}) and rearrange the sum to get:
+\begin{equation*}
+    \begin{aligned}
+        \sum_{\substack{ n \le x \\ n \equiv a (q)}} \frac{\mathbb{\mathds{1}}_{n \text{ prime}}}{n} &= \sum_{\substack{ n \le x }} \frac{\mathbb{\mathds{1}}_{n \text{ prime}}}{n} \frac{1}{\phi(q)} \sum_{\chi \pmod q}^{} \overline\chi(a)\chi(n)\\
+                                                                                                     &=\frac{1}{\phi(q)} \sum_{\chi}^{}\overline\chi(a) \sum_{p\le x}^{}\frac{\chi(p)}{p}
+    \end{aligned}
+\end{equation*}
+The principal character is like a thorn in our foot, since most of our results don't apply when $\chi = \chi_0$. To manage this situation, we isolate the principale character in our sum:\begin{equation*}
+    \frac{1}{\phi(q)} \sum_{\chi}^{}\overline\chi(a) \sum_{p\le x}^{}\frac{\chi(p)}{p} = \frac{1}{\phi(q)} \sum_{\chi \neq \chi_0}^{}\overline\chi(a) \sum_{p\le x}^{}\frac{\chi(p)}{p} + \frac{1}{\phi(q)} \overline\chi_0(a) \sum_{p\le x}^{}\frac{\chi_0(p)}{p}
+\end{equation*}
+Now, we have shown in \cref{eq:sum_non_principal_bound} that $\sum_{p\le x}^{}\frac{\chi(p)}{p}  = O(1)$ and thus :
+\begin{equation*}
+    \frac{1}{\phi(q)} \sum_{\chi \neq \chi_0}^{}\overline\chi(a) \sum_{p\le x}^{}\frac{\chi(p)}{p}  = O\left(\frac{1}{\phi(q)} \sum_{\chi \neq \chi_0}^{} \overline \chi(a)\right) = O(1)
+\end{equation*}
+We conclude, using $(a,q) = 1$, $\chi_0(a) = 1, \overline\chi_0(p)=1$ and \cref{thm:Mertens} \ref{thm:Mertens:ii}:
+\begin{equation*}
+    \sum_{\substack{p \text{ prime } \\ p \le x \\ p \equiv a (q)}} \frac{1}{p} =\frac{1}{\phi(q)}  \sum_{p\le x}^{}\frac{1}{p} + O(1) \sim  \frac{1}{\phi(q)}\log_2 x + O(1) 
+\end{equation*}
+
+\end{proof}
+
+
+
+
+\begin{corollary}
+    If $(a,d)=1$, then the arithmetic progression $a+nd$ contains infinitely many primes.
+\end{corollary}
+
+

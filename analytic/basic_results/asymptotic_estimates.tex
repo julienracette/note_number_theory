@@ -1,0 +1,137 @@
+\section{Asymptotic Estimates}
+
+
+
+
+\subsection{Sum to Integral}
+\begin{theorem}[Euler-Maclaurin formula]\label{thm:Euler-Maclaurin_formula}
+    Let $f \in \mathcal{C}^1([y,z])$  then
+    \begin{equation*}
+        \sum_{y < n \leq z}^{} f(n) = \int_{y }^{z }f(t)dt - \{t\}f(t) \rvert_{t=y}^{z}+ \int_{y }^{z }f'(t)\{t\}dt
+    \end{equation*}
+\end{theorem}
+\begin{theorem}[Abel's Summation formula]\label{thm:Abel_Summation_formula}\leavevmode
+    Let $(a)_{n=1}^{\infty},f \in \mathcal{C}^1([y,z])$ then
+    \begin{equation*}
+        \sum_{y<n\le z}^{}a_n f(n) =   \int_{y }^{z }f(t)dA(t) =f(t)A(t)\lvert_{t=y}^x  -\int_{y}^{z}f'(t)A(t)dt
+    \end{equation*}
+    where $A(N) = \sum_{n\le N}^{}a(n)$.
+\end{theorem}
+
+
+\subsection{Mertens' Theorem}
+The aim of this section is to proof Mertens' \cref{thm:Mertens}.
+This theorem will let us evaluate the sum of reciprocals of primes.
+
+\begin{definition}[Von Mangoldt function]
+    $$
+    \Lambda(n) := 
+    \begin{cases}
+        \log p & n = p^k \text{ for $p$ prime}\\
+        0 &
+    \end{cases}
+    $$
+\end{definition}
+We introduce this arithmetic function because we have this interesting relation with the $\log$.
+\begin{equation}
+    \log n= \sum_{p^a \mid \mid n}a \log p
+    =\sum_{p^k \mid n }\log p
+    =\sum_{d \mid n } \Lambda(d)
+    = 1*\Lambda
+    \label{eq:conv_von_mangold}
+\end{equation}
+\begin{theorem}[Mertens' three estimates]\label{thm:Mertens}
+    Let $x \geq 2$. Then, we have:
+    \leavevmode
+    \begin{enumerate}[label={\upshape\roman*)}]
+        \item $\displaystyle\sum_{p \leq x}^{} \frac{\log p }{p}=\log x +  O(1)$\\
+        \item\label{thm:Mertens:ii} $\displaystyle\sum_{p\leq x}^{} \frac{1}{p} = \log_2 x + c + O \left(\frac{1}{\log x}\right)$, with $c$ a constant. \\
+        \item $\displaystyle \prod_{p\leq x} \left(1-\frac{1}{p}\right) = \frac{e^{-\gamma}}{\log x}\left(O\left(1+\frac{1}{\log x}\right)\right)$ for $(x\geq 2)$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}\leavevmode
+    \begin{enumerate}[label={\upshape\roman*)}]
+        \item We use the convolution, \cref{eq:conv_von_mangold}, to get to following:
+            \begin{equation*}\label{eq:sum_logn}
+                    \sum_{p\leq x}^{}\log p=\sum_{a\leq x}^{} \Lambda(a) \sum_{b < \frac{x}{a}}^{}1
+                                            =\sum_{a\leq x}^{}\Lambda(a) \left(\frac{x}{a} + O(1)\right)
+                                            =\sum_{a\leq x}^{}\Lambda(a)\frac{x }{a} + O\left(\sum_{x\leq a}^{}\Lambda(a)\right) 
+            \end{equation*}
+            We then evaluate the error term :
+            \begin{equation*}
+                \begin{aligned}
+                    \sum_{a\leq x}^{}\Lambda(a) =\sum_{p^k \leq x}^{}\log p=\sum_{p \leq x}^{}\sum_{\substack{k \geq 1 \\ p^k\le x }}^{}\log p 
+                \end{aligned}
+            \end{equation*}
+            We notice that the elements of $\{k\ge 1 \mid p^k \le x\}$ are the same as $\{k \ge 1 \mid k \le \frac{\log x}{\log p}\}$. Using this fact and the Chebyshev Bound (\cref{thm:chebyshev}), we have that:
+            \begin{equation*}
+                \sum_{p \le x}^{} \sum_{\substack{k \ge 1 \\ p^k \le x}}^{} \log p\le \sum_{p \le x}^{} \log x = \pi(x) \log x \ll x.
+            \end{equation*}
+            Using the definition, we have for the main term:
+            \begin{equation*}
+            \sum_{a\leq x}^{}\Lambda(a)\frac{x }{a}=x  \left(\sum_{p \le x}^{} \sum_{\substack{k \ge 2 \\ p^k \le x}}^{} \frac{\log p}{p^k} + \sum_{p \le x}^{}  \frac{\log p}{p} \right)
+            \end{equation*}
+            We then bound the tail of the sum using the same trick as before:
+            \begin{equation*}
+                \sum_{p \le x}^{} \sum_{\substack{k \ge 2 \\ p^k \le x}}^{} \frac{\log p}{p^k} \le \sum_{p \le x}^{}\frac{\log x}{p^2}\le \sum_{n\le x}^{} \frac{\log x}{n^2} \ll \log  x
+            \end{equation*}
+            Therefore, we obtain:
+            \begin{equation}\label{eq:mertens_i_first}
+                \sum_{p \le x}^{} \log p =x \sum_{p \le x}^{} \frac{\log p}{p} + O(x)
+            \end{equation}
+            By \cref{thm:Euler-Maclaurin_formula}, we also get that:
+            \begin{equation}\label{eq:mertens_i_second}
+                \begin{aligned}
+                    \sum_{n\le x}^{}\log n = \int_{1}^{x} \log t dt + O(x) =x\log x-x+ O\left(\log x\right) 
+                \end{aligned}
+            \end{equation}
+            Combining \cref{eq:mertens_i_first} and \cref{eq:mertens_i_second}, we obtain what we were looking for.
+        \item Using the first estimate , we have that 
+            \begin{equation*}
+                \sum_{p\le x}^{}\frac{\log p}{p} = \log p+ R(x), \text{ with } R(x) = O(1).
+            \end{equation*}
+             We then use Abel's summation formula (see \cref{thm:Abel_Summation_formula}) to find that 
+        \begin{equation*}
+            \sum_{p\le x}^{}\frac{1}{p}  =\sum_{p\le x}^{}\frac{\log p}{p} \frac{1}{\log p} = \int_{2^-}^{x}\frac{1}{\log t}d \left(\log t+ R(t)\right) = \int_{2^-}^{x}\frac{1}{\log t}d \log t + \int_{2^-}^{x}\frac{1}{\log t}d R(t)
+        \end{equation*}
+        Using a simple integration by part, we can find that :
+        \begin{equation}
+            \int_{2^-}^{x}\frac{1}{\log t}d \log t = \log_2x - \log_2 2.
+        \end{equation}
+        We do the same for the other term to obtain 
+        \begin{equation*}
+            \int_{2^-}^{x}\frac{1}{\log t}d R(t) = \frac{R(x)}{\log x} - \frac{R(2^-)}{\log 2^{-}} + \int_{2}^{x}\frac{R(t)}{t\log^2t }
+        \end{equation*}
+        Since $R(x)=O(1)$, $\log 2^{-} =  -\log 2$ and by taking $c = \frac{R(2^-)}{\log2} - \log_2 2$, we obtain the following:
+        \begin{equation*}
+            \sum_{p \le x}^{}\frac{1}{p} = \log_2 x  + O \left(\frac{1}{\log x}\right) + c.
+        \end{equation*}
+        \item We start by using the Euler product (see \cref{thm:euler-product}), taking the $\log$ on both sides and applying Taylor theorem to obtain:
+            \begin{equation*}
+                \log \prod_{p \le x}^{}\left(1- \frac{1}{p}\right) = -\sum_{p \le x}^{}\frac{1}{p} + O \left(\sum_{p \le x} \frac{1}{p^2} \right)
+            \end{equation*}
+            We at least know that the error term is $O(1)$ since:
+            \begin{equation*}
+                \sum_{p \le x}^{}\frac{1}{p^2} \le \sum_{p \text{ prime }}^{} \frac{1}{p^2} \le \sum_{n \ge 1}^{}\frac{1}{n^2}
+            \end{equation*}
+            More precisly, we know that 
+            \begin{equation*}
+                \log(1-\frac{1}{p}) = -\sum_{p \le x}^{}\frac{1}{p} - \sum_{p \le x}^{}\sum_{k \ge 2 }^{} \frac{1}{p^k}
+            \end{equation*}
+            We take $\gamma =\sum_{p \le x}^{}\sum_{k \ge 2 }^{} \frac{1}{p^k} + c $.
+            Using the second estimate and the Taylor expansion of exponential, we get that:
+            \begin{equation*}
+                \prod_{p \le x}^{}\left(1- \frac{1}{p}\right) = e^{-\log_2(x)- \gamma + O(\frac{1}{\log x})}= \frac{e^{-\gamma}}{\log x} e^{O \left(\frac{1}{\log x}\right)}= \frac{e^{-\gamma}}{\log x} \left( 1+ O \left( \frac{1}{\log x} \right) \right)
+            \end{equation*}
+    \end{enumerate}
+
+\end{proof}
+\begin{corollary}
+    There are infinitely many primes.
+\end{corollary}
+
+
+
+
+
+

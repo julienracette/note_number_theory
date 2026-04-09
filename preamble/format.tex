@@ -17,6 +17,10 @@
   {#1}
 
 
+\newcommand{\chaptertoc}{%
+    \startcontents
+    \printcontents{}{1}{\setcounter{tocdepth}{2}}
+}
 \newcommand{\intro}[1]{
 \noindent
 \begin{minipage}[t]{0.48\textwidth}
@@ -28,8 +32,6 @@
 \end{minipage}
 \newpage
 }
-
-
 
 
 \titleformat{\chapter}[display]

@@ -7,3 +7,10 @@
 \let\temp\phi
 \let\phi\varphi
 \let\varphi\temp
+
+\makeatletter
+\newcommand{\tpmod}[1]{{\@displayfalse\pmod{#1}}}
+\makeatother
+
+
+\DeclareMathOperator{\ord}{ord}

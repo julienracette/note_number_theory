@@ -1,0 +1,106 @@
+\section{Dirichlet $L$-functions}
+\subsection{Definition and basic properties}
+\begin{definition}[$L$-function]\leavevmode\\
+    Let $\chi(a)$ a Dirichlet character $\pmod m$, $L(s,\chi):\{s \in \mathbb{C} \mid \Re(s)>1\} \to \mathbb{C}$ we denote the Dirichlet $L$-function:
+    \begin{equation*}
+        L(s,\chi):= \sum_{n\ge 1}^{}\frac{\chi(n)}{n^s}
+    \end{equation*}
+\end{definition}
+Since $\lvert \chi(a)\rvert\le 1 \text{, }\forall a \in \mathbb{Z}$, we have that the sum is absolutely convergent for $\Re(s) > 1$. Therefore, since $\chi$ is completely multiplicative, can use the Euler product (see \cref{thm:euler-product}) to get:
+\begin{equation}\label{eq:L-function_euler_product}
+    L(s,\chi)= \prod_{p \text{ prime}}\left(\chi(1) + \frac{\chi(p)}{p^s} + \frac{\chi(p^2)}{p^{2s} }+ \dots\right) = \prod_{p \text{ prime }}\left(1-\frac{\chi(p)}{p^s}\right)^{-1}
+\end{equation}
+For the principal character, we have the following:
+\begin{equation}\label{eq:principal_char_l_function_relation}
+    L(s,\chi_0) =   \prod_{p \nmid m}\left(1-\frac{\chi_0(p)}{p^s}\right)^{-1}  = \prod_{p \mid m} \left(1-\frac{1}{p^s}\right) \zeta(s)
+\end{equation}
+Therefore, $L(s,\chi_0)$ has a simple pole in $s=1$.
+\begin{lemma}\label{lem:upper_bound_dir_char_sum}
+    Let $\chi \pmod m$ and $A<B \in \mathbb{N}$, then 
+    \begin{equation*}
+        \left\lvert\sum_{A\le n \le  B}^{}\chi(n)\right\rvert \leq m
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+     Let $\alpha = \lfloor\frac{ B-A}{q}\rfloor>0$ . Since $\chi$ is periodic, we have that :
+    \begin{equation*}
+        \left|\sum_{A\le n \le  B}^{}\chi(n)\right|\leq \left|\sum_{k=0}^{ \alpha-1 } \sum_{j=A +k \alpha}^{A +k \alpha + m} \chi(j)\right|+ \sum_{n=1}^{m} \lvert \chi(n) \rvert.
+    \end{equation*}
+Using the first orthogonality relation of \cref{thm:orthogonality_rel}, we get that 
+\begin{equation*}
+    \sum_{j=A +k \alpha}^{A +k \alpha + m} \chi(j) = 0.
+\end{equation*}
+Thus, 
+\begin{equation*}
+    \sum_{A\le n \le  B}^{}\chi(n) \leq \sum_{n=1}^{m} \lvert \chi(n) \rvert =m.
+\end{equation*}
+\end{proof}
+\begin{theorem}\label{thm:analytic_continuation_L-function}
+    Let $\chi$ be a non-trivial character $\pmod m$, then there exist an analytic continuation of $L(s,\chi),$ $\forall s \in \mathbb{C}$ with $\Re(s)>0$ written:
+    \begin{equation}
+       L(s,\chi) =  s\int_{1 }^{\infty}\frac{S(t,\chi)}{t^{s+1}}dt,
+    \end{equation}
+    with $S(t,\chi) = \sum_{n\le t}^{}\chi(t)$.
+\end{theorem}
+\begin{proof}
+    Using Abel Summation formula (see \cref{thm:Abel_Summation_formula}), we get 
+    \begin{equation*}
+        L(s,\chi)= \lim_{N \to \infty}\sum_{n = 1}^{N}\frac{\chi(n)}{n^s} =\lim_{N \to \infty}\frac{S(N,\chi)}{N^s} -  \int_{1}^{N}\frac{dS(t,\chi)}{t^s}
+    \end{equation*}
+    By \cref{lem:upper_bound_dir_char_sum}, we know that $\left\lvert S(t,\chi)\right\rvert\le m $, then $\frac{S(N,\chi)}{N^s} \xrightarrow{N \to \infty}0$.
+    We then have the following using an integration by part:
+    \begin{equation}
+        L(s,\chi) = -s \int_{1}^{\infty}\frac{dS(t,\chi)}{t^s} = s \int_{1}^{\infty}\frac{S(t,\chi)}{t^{s+1}}dt
+    \end{equation}
+    Now we can easily show that the integral is absolutely convergent. Let $s = \sigma + iy$ , we get:
+    \begin{equation*}
+        \left\lvert L(s,\chi)\right\rvert\leq m \lvert s\rvert \int_{1 }^{\infty }t^{-\sigma - 1}dt = m|s| \left[ \frac{t^{-\sigma}}{-\sigma}\right]^{\infty}_{1}
+    \end{equation*} 
+    Therefore, this integral is absolutely convergent for $\Re(s) > 0$.
+\end{proof}
+
+
+
+
+
+
+\begin{theorem}
+    \begin{equation*} \label{thm:L-function_neq_0_non-trivial}
+        L(1,\psi)\neq 0 \text{, for all non-principal character } \psi \pmod q .
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    Suppose $ L(1,\psi_0)= 0$ for some non-principal character $\psi_0 \pmod q$ and let
+\begin{equation*}
+    A(s) = \prod_{\chi \pmod q} L(s,\chi)
+\end{equation*}
+\Cref{eq:principal_char_l_function_relation} tells us that $A(s)$ has a simple pole in $s=1$ that cancels out with the zero of $L(1,\psi_0)$. Therefore, $A(s)$ is analytic for $\Re(s) >0$ by \cref{thm:analytic_continuation_L-function}.
+We now want to create a contradiction.We have that
+\begin{equation*}
+    \log A(s) = \sum_{\chi \pmod q}^{}\log L(s,\chi) .
+\end{equation*}
+However, by using Euler product (see \cref{thm:euler-product}), and the Taylor expansion of the $\log$, we get that
+\begin{equation*}
+    \log L(s,\chi)  = \log\prod_{p \nmid q}\left(1-\frac{\chi(p)}{p}\right)^{-1} = -\sum_{p \nmid q}\log\left(1-\frac{\chi(p)}{p}\right)= \sum_{p  \nmid q }^{} \sum_{k \ge 1}^{} \frac{\chi(p)^k}{kp^{ks}}
+\end{equation*}
+We then use the orthogonality relation (see \cref{thm:orthogonality_rel}) to get the following:
+\begin{equation*}
+    \log A(s) = \sum_{\substack{p \text{ premier }\\k\ge 1}}^{}\frac{1}{kp^{ks}} \sum_{\chi \tpmod q}^{}\chi(p^k) = \phi(q) \sum_{\substack{p \equiv 1 \tpmod q\\ k\ge 1}}^{} \frac{1}{kp^{ks}}
+\end{equation*}
+Let $m_p := \ord_q(p)$, then we can write:
+\begin{equation*}
+    \log A(s) =\phi(q) \sum_{p \nmid q}\sum_{\substack{k \ge 1 \\ m_p \mid k}}^{} \frac{1}{kp^{ks}} = \phi(q)\sum_{p \nmid q}^{} \sum_{j\ge1}^{}\frac{1}{jm_p p^{jm_p s}}
+\end{equation*}
+Using Taylor expansion of $\log$, we obtain 
+\begin{equation*}
+    \log A(s) =  \sum_{p \nmid q}^{} \frac{-\phi(q)}{m_p} \log(1 - \frac{1}{p^{m_ps}})
+\end{equation*}
+Taking the exponential on both sides we get:
+\begin{equation}\label{eq:product_l_function}
+    A(s) = \prod_{p \nmid q} \left(1- \frac{1}{p^{m_ps}}\right)^{\frac{-\phi(q)}{m_p}}
+\end{equation}
+Suppose now $\Im(\psi) \neq 0$, then $L(1,\overline{\psi}) = 0$ which implies that $A(s)$
+has two zeros in $s=1$ and thus, $A(1)=0$. However, \cref{eq:product_l_function} tells us that $A(1)\ge 1$. This mean that $\exists! \psi \tpmod q$ such that $L(1,\psi)=0$.
+\end{proof}
+
+
