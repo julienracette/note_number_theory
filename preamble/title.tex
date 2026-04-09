@@ -1,0 +1,35 @@
+
+\definecolor{doc}{RGB}{0,60,110}  % optional - use your existing color
+\makeatletter
+\newcommand{\mytitlepage}[1]{%  #1 = BigTitle, #2 = LittleTitle
+    \newgeometry{top=8cm,bottom=.5in,left=2cm,right=2cm}
+    \begin{titlepage}
+    \centering
+    
+    % Title in a custom font style and size
+    {\textbf{\fontfamily{qhv}\selectfont\Huge #1}}
+    
+    \vspace{0.5cm}
+    
+    % Draw a line 4pt high
+    \par\noindent\rule{\textwidth}{4pt}
+    
+    \vspace{0.5cm}
+    \textbf{by \@author}
+
+    
+    \vspace{0.5cm}
+    
+    % Edition Number
+    \begin{flushright}
+        \Large Last update: \today
+    \end{flushright}
+    
+    \vspace{\fill}
+    
+    \end{titlepage}
+    \restoregeometry
+}
+\makeatother
+
+

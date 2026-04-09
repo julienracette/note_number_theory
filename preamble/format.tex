@@ -1,0 +1,45 @@
+\titleformat{\section}
+  {\normalfont\Large\bfseries}
+  {\thesection}
+  {1em}
+  {#1}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}
+  {\thesubsection}
+  {1em}
+  {#1}
+
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries}
+  {\thesubsubsection}
+  {1em}
+  {#1}
+
+
+\newcommand{\intro}[1]{
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+    \chaptertoc
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+    #1
+\end{minipage}
+\newpage
+}
+
+
+
+
+\titleformat{\chapter}[display]
+{\centering\normalfont\Huge}
+{\vspace{-20pt}\textbf{\MakeUppercase{\chaptername} \thechapter}}
+{0pt}
+{\titlerule[2pt]\vspace{1pc}\Huge\MakeUppercase{#1}}
+
+\titleformat{name=\chapter,numberless}[display]
+{  \centering\normalfont\Huge}
+{\vspace{-60pt}}
+{0pt}
+{\Huge\MakeUppercase{#1} \addcontentsline{toc}{chapter}{#1} }

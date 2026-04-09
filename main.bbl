@@ -1,0 +1,234 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{Granville2025}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=cad81a921d52a22b6ed64fabf6cd67da}{%
+           family={Granville},
+           familyi={G\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {American Mathematical Society}%
+      }
+      \strng{namehash}{cad81a921d52a22b6ed64fabf6cd67da}
+      \strng{fullhash}{cad81a921d52a22b6ed64fabf6cd67da}
+      \strng{fullhashraw}{cad81a921d52a22b6ed64fabf6cd67da}
+      \strng{bibnamehash}{cad81a921d52a22b6ed64fabf6cd67da}
+      \strng{authorbibnamehash}{cad81a921d52a22b6ed64fabf6cd67da}
+      \strng{authornamehash}{cad81a921d52a22b6ed64fabf6cd67da}
+      \strng{authorfullhash}{cad81a921d52a22b6ed64fabf6cd67da}
+      \strng{authorfullhashraw}{cad81a921d52a22b6ed64fabf6cd67da}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Analytic Number Theory Revealed: A First Guide to Prime Numbers}
+      \field{year}{2025}
+      \true{nocite}
+    \endentry
+    \entry{Koukoulopoulos2020}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=9228f16c01aec6e3b83fe60c871292ab}{%
+           family={Koukoulopoulos},
+           familyi={K\bibinitperiod},
+           given={Dimitris},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {American Mathematical Society}%
+      }
+      \strng{namehash}{9228f16c01aec6e3b83fe60c871292ab}
+      \strng{fullhash}{9228f16c01aec6e3b83fe60c871292ab}
+      \strng{fullhashraw}{9228f16c01aec6e3b83fe60c871292ab}
+      \strng{bibnamehash}{9228f16c01aec6e3b83fe60c871292ab}
+      \strng{authorbibnamehash}{9228f16c01aec6e3b83fe60c871292ab}
+      \strng{authornamehash}{9228f16c01aec6e3b83fe60c871292ab}
+      \strng{authorfullhash}{9228f16c01aec6e3b83fe60c871292ab}
+      \strng{authorfullhashraw}{9228f16c01aec6e3b83fe60c871292ab}
+      \field{extraname}{1}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The Distribution of Prime Numbers}
+      \field{year}{2020}
+      \true{nocite}
+    \endentry
+    \entry{Koukoulopoulos2024}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=9228f16c01aec6e3b83fe60c871292ab}{%
+           family={Koukoulopoulos},
+           familyi={K\bibinitperiod},
+           given={Dimitris},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{9228f16c01aec6e3b83fe60c871292ab}
+      \strng{fullhash}{9228f16c01aec6e3b83fe60c871292ab}
+      \strng{fullhashraw}{9228f16c01aec6e3b83fe60c871292ab}
+      \strng{bibnamehash}{9228f16c01aec6e3b83fe60c871292ab}
+      \strng{authorbibnamehash}{9228f16c01aec6e3b83fe60c871292ab}
+      \strng{authornamehash}{9228f16c01aec6e3b83fe60c871292ab}
+      \strng{authorfullhash}{9228f16c01aec6e3b83fe60c871292ab}
+      \strng{authorfullhashraw}{9228f16c01aec6e3b83fe60c871292ab}
+      \field{extraname}{2}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Lecture notes, Université de Montréal}
+      \field{title}{Introduction à la théorie des nombres}
+      \field{year}{2024}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://dms.umontreal.ca/~koukoulo/documents/notes/theorie_des_nombres.pdf
+      \endverb
+      \verb{url}
+      \verb https://dms.umontreal.ca/~koukoulo/documents/notes/theorie_des_nombres.pdf
+      \endverb
+    \endentry
+    \entry{Mestrovic2023}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=a6f0c337f93c5e71e643b889120944e2}{%
+           family={Meštrović},
+           familyi={M\bibinitperiod},
+           given={Romeo},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{a6f0c337f93c5e71e643b889120944e2}
+      \strng{fullhash}{a6f0c337f93c5e71e643b889120944e2}
+      \strng{fullhashraw}{a6f0c337f93c5e71e643b889120944e2}
+      \strng{bibnamehash}{a6f0c337f93c5e71e643b889120944e2}
+      \strng{authorbibnamehash}{a6f0c337f93c5e71e643b889120944e2}
+      \strng{authornamehash}{a6f0c337f93c5e71e643b889120944e2}
+      \strng{authorfullhash}{a6f0c337f93c5e71e643b889120944e2}
+      \strng{authorfullhashraw}{a6f0c337f93c5e71e643b889120944e2}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{math.HO}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{arXiv preprint}
+      \field{title}{Euclid’s theorem on the infinitude of primes: A historical survey of its 200 proofs (300 B.C.–2022)}
+      \field{year}{2023}
+      \true{nocite}
+      \verb{eprint}
+      \verb 1202.3670
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1202.3670v4
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1202.3670v4
+      \endverb
+    \endentry
+    \entry{mertens_1874}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=9f301667a3f970ad39fd1bec7a55e695}{%
+           family={Mertens},
+           familyi={M\bibinitperiod},
+           given={Franz},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{9f301667a3f970ad39fd1bec7a55e695}
+      \strng{fullhash}{9f301667a3f970ad39fd1bec7a55e695}
+      \strng{fullhashraw}{9f301667a3f970ad39fd1bec7a55e695}
+      \strng{bibnamehash}{9f301667a3f970ad39fd1bec7a55e695}
+      \strng{authorbibnamehash}{9f301667a3f970ad39fd1bec7a55e695}
+      \strng{authornamehash}{9f301667a3f970ad39fd1bec7a55e695}
+      \strng{authorfullhash}{9f301667a3f970ad39fd1bec7a55e695}
+      \strng{authorfullhashraw}{9f301667a3f970ad39fd1bec7a55e695}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal für die reine und angewandte Mathematik}
+      \field{title}{Ein Beitrag zur analytischen Zahlentheorie}
+      \field{volume}{78}
+      \field{year}{1874}
+      \true{nocite}
+      \field{pages}{46\bibrangedash 62}
+      \range{pages}{17}
+    \endentry
+    \entry{hadamard_1896}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=867a2303b0c6cc9d6fb2010bbc2f6fbe}{%
+           family={Hadamard},
+           familyi={H\bibinitperiod},
+           given={Jacques},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{867a2303b0c6cc9d6fb2010bbc2f6fbe}
+      \strng{fullhash}{867a2303b0c6cc9d6fb2010bbc2f6fbe}
+      \strng{fullhashraw}{867a2303b0c6cc9d6fb2010bbc2f6fbe}
+      \strng{bibnamehash}{867a2303b0c6cc9d6fb2010bbc2f6fbe}
+      \strng{authorbibnamehash}{867a2303b0c6cc9d6fb2010bbc2f6fbe}
+      \strng{authornamehash}{867a2303b0c6cc9d6fb2010bbc2f6fbe}
+      \strng{authorfullhash}{867a2303b0c6cc9d6fb2010bbc2f6fbe}
+      \strng{authorfullhashraw}{867a2303b0c6cc9d6fb2010bbc2f6fbe}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Bulletin de la Société Mathématique de France}
+      \field{title}{Sur la distribution des zéros de la fonction zeta et ses conséquences arithmétiques}
+      \field{volume}{24}
+      \field{year}{1896}
+      \true{nocite}
+      \field{pages}{199\bibrangedash 220}
+      \range{pages}{22}
+    \endentry
+    \entry{dlvp_1896}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=45e36291afdaf1701520dc5717128f85}{%
+           family={Vallée\bibnamedelima Poussin},
+           familyi={V\bibinitperiod\bibinitdelim P\bibinitperiod},
+           given={Charles\bibnamedelima Jean},
+           giveni={C\bibinitperiod\bibinitdelim J\bibinitperiod},
+           prefix={de\bibnamedelima la},
+           prefixi={d\bibinitperiod\bibinitdelim l\bibinitperiod}}}%
+      }
+      \strng{namehash}{45e36291afdaf1701520dc5717128f85}
+      \strng{fullhash}{45e36291afdaf1701520dc5717128f85}
+      \strng{fullhashraw}{45e36291afdaf1701520dc5717128f85}
+      \strng{bibnamehash}{45e36291afdaf1701520dc5717128f85}
+      \strng{authorbibnamehash}{45e36291afdaf1701520dc5717128f85}
+      \strng{authornamehash}{45e36291afdaf1701520dc5717128f85}
+      \strng{authorfullhash}{45e36291afdaf1701520dc5717128f85}
+      \strng{authorfullhashraw}{45e36291afdaf1701520dc5717128f85}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Annales de la Société Scientifique de Bruxelles}
+      \field{title}{Recherches analytiques sur la théorie des nombres premiers}
+      \field{volume}{20}
+      \field{year}{1896}
+      \true{nocite}
+      \field{pages}{183\bibrangedash 256}
+      \range{pages}{74}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
