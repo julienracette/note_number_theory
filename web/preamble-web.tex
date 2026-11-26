@@ -1,0 +1,42 @@
+% Préambule allégé utilisé UNIQUEMENT pour la version web (plasTeX).
+% Le PDF continue d'utiliser preamble.tex.
+\documentclass{book}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{webfixes}
+
+% --- Environnements (mêmes noms que preamble/box.tex) ---
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{customthm}{Theorem}
+\newtheorem{customlemma}{Lemma}
+\newtheorem{customproposition}{Proposition}
+
+% --- Macros mathématiques (miroir de preamble/macros.tex) ---
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\tpmod}[1]{\pmod{#1}}
+\DeclareMathOperator{\ord}{ord}
+\newcommand{\mathds}[1]{\mathbb{#1}}
+\newcommand{\rcom}[1]{\textit{Rebecca: #1}}
+
+% --- Commandes de mise en page du PDF, neutralisées pour le web ---
+\newcommand{\intro}[1]{#1}
+\newcommand{\startcontents}{}
+\newcommand{\printcontents}[3]{}
+\newcommand{\chaptertoc}{}
+\newcommand{\mytitlepage}[1]{}
+\newcommand{\upshape}{}
+\newcommand{\index}[2][]{}
+\newcommand{\todo}[1]{}
+\newcommand{\lipsum}{}
+\newcommand{\parencite}[1]{\cite{#1}}
+\newcommand{\textcite}[1]{\cite{#1}}
+\newenvironment{appendices}{\appendix}{}
+
+% Correctifs pour plasTeX

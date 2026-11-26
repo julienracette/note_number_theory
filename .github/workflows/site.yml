@@ -1,0 +1,55 @@
+# Reconstruit le PDF et le site web à chaque push sur master,
+# puis publie le tout sur GitHub Pages.
+name: Build & deploy notes
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # 1) PDF complet (biber, index, etc.) avec ton préambule habituel
+      - name: Compile main.pdf
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          latexmk_shell_escape: true
+
+      # 2) Version web avec plasTeX
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install plasTeX + bibtex
+        run: |
+          pip install plasTeX
+          sudo apt-get update && sudo apt-get install -y --no-install-recommends texlive-latex-base
+      - name: Build website
+        run: python3 web/build.py _site
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

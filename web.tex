@@ -1,0 +1,29 @@
+% Point d'entrée de la version web. Ajoute ici les mêmes \part / \input que dans main.tex.
+\input{web/preamble-web}
+
+\title{Notes in Number Theory}
+\author{Julien Racette}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+Dernière mise à jour : \today \\
+\href{main.pdf}{Version PDF}
+\end{center}
+
+\input{prerequisite}
+
+\part{Elementary Number Theory}
+\input{elementary}
+
+\part{Analytic Number Theory}
+\input{analytic}
+
+\part{Algebraic Number Theory}
+\input{algebraic}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
