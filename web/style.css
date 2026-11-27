@@ -36,8 +36,8 @@ body {
   font-optical-sizing: auto;
 }
 
-a { color: var(--doc); text-decoration-thickness: 1px; text-underline-offset: 2px; }
-a:hover { color: var(--doc-soft); }
+a, a:visited { color: var(--doc); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover, a:active { color: var(--doc-soft); }
 :focus-visible { outline: 2px solid var(--doc-soft); outline-offset: 2px; }
 
 h1, h2, h3, h4, h5, h6 {
@@ -61,7 +61,7 @@ h1#doc_title {
   font-weight: 700;
   line-height: 1.2;
 }
-h1#doc_title a { color: var(--doc); text-decoration: none; }
+#doc_title a, #doc_title a:visited, #doc_title a:hover { color: var(--doc); text-decoration: none; }
 svg#toc-toggle { color: var(--doc); cursor: pointer; }
 a.pdf-link {
   margin-left: auto;
@@ -161,6 +161,16 @@ span[class$="_thmlabel"] { margin-left: 0.35rem; font-variant-numeric: tabular-n
 span[class$="_thmtitle"] { font-weight: 400; color: var(--ink); }
 span[class$="_thmtitle"]::before { content: "("; }
 span[class$="_thmtitle"]::after { content: ")"; }
+/* Encadré visé par un renvoi : léger surlignage aux couleurs du site
+   (remplace le flash gris du thème plasTeX) */
+@keyframes target-flash {
+  from { box-shadow: 0 0 0 3px var(--doc-soft); }
+  to   { box-shadow: 0 0 0 3px transparent; }
+}
+div[class*="_thmwrapper"]:target,
+div.equation:target,
+div.displaymath:target { animation: target-flash 1.2s ease-out; }
+
 div[class$="_thmcontent"] { margin-left: 0; padding-left: 0; padding-top: 0; }
 div[class$="_thmcontent"] > p:first-child { margin-top: 0.35rem; }
 
@@ -220,5 +230,5 @@ nav.prev_up_next svg { width: 1rem; height: 1rem; }
 dl.bibliography dt, div.bibliography dt { color: var(--doc); }
 
 @media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; }
+  * { transition: none !important; animation: none !important; }
 }
