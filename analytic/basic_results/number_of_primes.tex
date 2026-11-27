@@ -1,7 +1,152 @@
 \section{Number of primes}
+
+\subsection{Chebyshëv's bounds}
+We introduce the two Chebyshëv functions
+\begin{equation*}
+    \theta(x) := \sum_{p\le x}\log p, \qquad \psi(x) := \sum_{n\le x}\Lambda(n) = \sum_{p^k\le x}\log p,
+\end{equation*}
+where $\Lambda$ is the von Mangoldt function defined below (\cref{def:von_mangoldt}).
+
 \begin{theorem}[Chebyshëv's bounds]\label{thm:chebyshev}
     For $x \ge 2$, we have
     \begin{equation*}
-        \pi(x) \asymp \frac{x}{\log x}
+        \pi(x) \asymp \frac{x}{\log x}.
     \end{equation*}
+    Moreover, $\theta(x)\le x\log 4$ for $x\ge1$ and $\psi(x)\ll x$ for $x \ge 2$.
 \end{theorem}
+\begin{proof}
+    \emph{Upper bound.} We first show by induction that $\prod_{p\le n}p \le 4^n$ for every integer $n\ge1$. It is true for $n = 1,2$. If $n>2$ is even, then $n$ is not prime and $\prod_{p\le n}p = \prod_{p\le n-1}p\le 4^{n-1}$. If $n = 2m+1$ is odd, every prime $p \in (m+1,2m+1]$ divides $(2m+1)!$ but not $m!\,(m+1)!$, so it divides $\binom{2m+1}{m}$. Since $\binom{2m+1}{m} = \binom{2m+1}{m+1}$ and these two terms appear in $\sum_{j}\binom{2m+1}{j} = 2^{2m+1}$, we get $\binom{2m+1}{m}\le 4^m$. By induction,
+    \begin{equation*}
+        \prod_{p\le 2m+1}p = \prod_{p\le m+1}p\prod_{m+1<p\le 2m+1}p \le 4^{m+1}\binom{2m+1}{m} \le 4^{m+1}4^m = 4^{2m+1}.
+    \end{equation*}
+    Taking the $\log$, $\theta(x) = \theta(\lfloor x\rfloor)\le \lfloor x\rfloor\log4\le x\log 4$ for $x\ge 1$. Then, for $x\ge2$,
+    \begin{equation*}
+        \pi(x) \le \pi(\sqrt x) + \sum_{\sqrt x<p\le x}\frac{\log p}{\log \sqrt x} \le \sqrt x + \frac{2\theta(x)}{\log x}\le \sqrt x + \frac{2\log 4\,x}{\log x}\ll \frac{x}{\log x}.
+    \end{equation*}
+    For $\psi$, the number of $k\ge1$ with $p^k\le x$ is $\left\lfloor\frac{\log x}{\log p}\right\rfloor$, so $\psi(x) = \sum_{p\le x}\log p\left\lfloor\frac{\log x}{\log p}\right\rfloor\le \pi(x)\log x \ll x$.
+
+    \emph{Lower bound.} Let $n\ge1$. The number of multiples of $p^k$ in $\{1,\dots,n\}$ is $\lfloor n/p^k\rfloor$, so the $p$-adic valuation of $n!$ is $v_p(n!) = \sum_{k\ge1}\lfloor n/p^k\rfloor$ (Legendre's formula). Hence
+    \begin{equation*}
+        v_p\binom{2n}{n} = \sum_{k\ge 1}\left(\left\lfloor\frac{2n}{p^k}\right\rfloor - 2\left\lfloor\frac{n}{p^k}\right\rfloor\right).
+    \end{equation*}
+    Each term is $0$ or $1$ (because $\lfloor 2u\rfloor-2\lfloor u\rfloor \in\{0,1\}$) and vanishes when $p^k>2n$. Thus $p^{v_p\binom{2n}{n}}\le 2n$, and only primes $p\le 2n$ divide $\binom{2n}{n}$. On the other hand, $\binom{2n}{n}$ is the largest of the $2n+1$ terms of $\sum_j\binom{2n}{j} = 4^n$. We get
+    \begin{equation*}
+        \frac{4^n}{2n+1}\le\binom{2n}{n}\le (2n)^{\pi(2n)}, \quad\text{so}\quad \pi(2n)\ge\frac{n\log 4-\log(2n+1)}{\log (2n)}.
+    \end{equation*}
+    For $x\ge4$, take $n = \lfloor x/2\rfloor$, so that $x/4\le n$ and $2n\le x$. Then
+    \begin{equation*}
+        \pi(x)\ge\pi(2n)\ge \frac{x\log 2}{2\log x} - \frac{\log(x+1)}{\log x} \ge \frac{x\log 2}{4\log x}
+    \end{equation*}
+    for $x$ large enough, say $x\ge X_0$. For $2\le x\le X_0$, $\pi(x)\ge1$ and $\frac{x}{\log x}$ is bounded, so $\pi(x)\gg \frac{x}{\log x}$ for all $x\ge2$.
+\end{proof}
+
+\subsection{Mertens' Theorem}
+The aim of this section is to prove Mertens' \cref{thm:Mertens}.
+This theorem will let us evaluate the sum of reciprocals of primes.
+
+\begin{definition}[Von Mangoldt function]\label{def:von_mangoldt}
+    $$
+    \Lambda(n) :=
+    \begin{cases}
+        \log p & \text{if } n = p^k \text{ for $p$ prime and } k \ge 1,\\
+        0 & \text{otherwise.}
+    \end{cases}
+    $$
+\end{definition}
+We introduce this arithmetic function because of the following relation with the $\log$: if $n = \prod p^{a_p}$, then
+\begin{equation}
+    \log n= \sum_{p^a \mid \mid n}a \log p
+    =\sum_{\substack{p^k \mid n\\ k\ge1} }\log p
+    =\sum_{d \mid n } \Lambda(d),
+    \quad\text{that is,}\quad \log = 1*\Lambda.
+    \label{eq:conv_von_mangold}
+\end{equation}
+
+\begin{theorem}[Mertens' three estimates]\label{thm:Mertens}
+    Let $x \geq 2$. Then, we have:
+    \leavevmode
+    \begin{enumerate}[label={\upshape\roman*)}]
+        \item\label{thm:Mertens:i} $\displaystyle\sum_{p \leq x} \frac{\log p }{p}=\log x +  O(1)$;
+        \item\label{thm:Mertens:ii} $\displaystyle\sum_{p\leq x} \frac{1}{p} = \log_2 x + c + O \left(\frac{1}{\log x}\right)$, with $c$ a constant;
+        \item\label{thm:Mertens:iii} $\displaystyle \prod_{p\leq x} \left(1-\frac{1}{p}\right) = \frac{e^{-\gamma}}{\log x}\left(1+O\left(\frac{1}{\log x}\right)\right)$, where $\gamma$ is the Euler-Mascheroni constant.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}\leavevmode
+    \begin{enumerate}[label={\upshape\roman*)}]
+        \item By \cref{eq:conv_von_mangold}, and by switching the sums,
+            \begin{equation*}
+                \sum_{n\le x}\log n = \sum_{n\le x}\sum_{d\mid n}\Lambda(d) = \sum_{d\le x}\Lambda(d)\sum_{\substack{n\le x\\ d\mid n}}1 = \sum_{d\le x}\Lambda(d)\left\lfloor\frac xd\right\rfloor = x\sum_{d\le x}\frac{\Lambda(d)}{d} + O\big(\psi(x)\big).
+            \end{equation*}
+            By \cref{thm:chebyshev}, $\psi(x) \ll x$, and by \cref{prop:classical_sums} \ref{prop:classical_sums:log}, the left-hand side is $x\log x - x + O(\log x)$. Dividing by $x$, we get
+            \begin{equation*}
+                \sum_{d\le x}\frac{\Lambda(d)}{d} = \log x + O(1).
+            \end{equation*}
+            It remains to remove the prime powers $p^k$ with $k \ge 2$. Their contribution is bounded independently of $x$:
+            \begin{equation*}
+                0\le \sum_{d\le x}\frac{\Lambda(d)}{d} - \sum_{p\le x}\frac{\log p}{p} = \sum_{\substack{p^k\le x\\k\ge2}}\frac{\log p}{p^k}\le\sum_p\log p\sum_{k\ge2}\frac1{p^k} = \sum_p\frac{\log p}{p(p-1)}\le\sum_{n\ge2}\frac{\log n}{n(n-1)}<\infty.
+            \end{equation*}
+        \item Let $A(t) = \sum_{p\le t}\frac{\log p}{p}$ and, by the first estimate, write $A(t) = \log t + R(t)$, where $\lvert R(t)\rvert\le K$ for $t\ge2$. We apply \cref{thm:Abel_Summation_formula} with $a_n = \frac{\log n}{n}\mathds{1}_{n \text{ prime}}$ and $f(t) = \frac 1{\log t}$ on $(3/2,x]$. Since $A(3/2) = 0$ and $A(t)=0$ for $t<2$,
+        \begin{equation*}
+            \sum_{p\le x}\frac{1}{p} = \frac{A(x)}{\log x} + \int_{2}^{x}\frac{A(t)}{t\log^2 t}\,dt = 1 + \frac{R(x)}{\log x} + \int_2^x\frac{dt}{t\log t} + \int_2^x\frac{R(t)}{t\log^2t}\,dt.
+        \end{equation*}
+        We have $\int_2^x\frac{dt}{t\log t} = \log_2 x - \log_2 2$. Since $R$ is bounded, the integral $\int_2^\infty \frac{R(t)}{t\log^2t}\,dt$ converges and
+        \begin{equation*}
+            \left\lvert\int_x^\infty\frac{R(t)}{t\log^2 t}\,dt\right\rvert\le K\int_x^\infty\frac{dt}{t\log^2t} = \frac{K}{\log x}.
+        \end{equation*}
+        Taking $c = 1 - \log_2 2 + \int_2^\infty\frac{R(t)}{t\log^2t}\,dt$, we obtain
+        \begin{equation*}
+            \sum_{p \le x}\frac{1}{p} = \log_2 x  + c + O \left(\frac{1}{\log x}\right).
+        \end{equation*}
+        \item Taking the $\log$ and using the Taylor expansion $-\log(1-u) = \sum_{k\ge1}\frac{u^k}{k}$ for $0<u<1$, we get
+            \begin{equation}\label{eq:mertens_iii_log}
+                -\log \prod_{p \le x}\left(1- \frac{1}{p}\right) = \sum_{p\le x}\frac1p + \sum_{p\le x}\sum_{k\ge2}\frac{1}{kp^k} = \log_2 x + c + B + O\left(\frac{1}{\log x}\right),
+            \end{equation}
+            where $B := \sum_p\sum_{k\ge2}\frac{1}{kp^k}$. Indeed, $B\le\sum_p\frac{1}{p(p-1)}<\infty$, and the tail satisfies $\sum_{p>x}\sum_{k\ge2}\frac{1}{kp^k}\le\sum_{n>x}\frac{1}{n(n-1)}\le\frac{1}{x-1}\ll\frac{1}{\log x}$.
+
+            Taking the exponential in \cref{eq:mertens_iii_log}, and using $e^{O(1/\log x)} = 1 + O(1/\log x)$ (the exponent is bounded for $x \ge 2$), we get
+            \begin{equation*}
+                \prod_{p \le x}\left(1- \frac{1}{p}\right) = \frac{e^{-(c+B)}}{\log x}\left(1+O\left(\frac1{\log x}\right)\right).
+            \end{equation*}
+            It remains to show that $c + B = \gamma$. For this, we compare two expressions of $\log\zeta(\sigma)$ when $\sigma\to1^+$.
+
+            First, by \cref{thm:euler-product} and the Taylor expansion of $\log$,
+            \begin{equation*}
+                \log\zeta(\sigma) = -\sum_p\log\left(1-\frac{1}{p^\sigma}\right) = P(\sigma) + B(\sigma),\quad\text{where } P(\sigma) := \sum_p\frac1{p^\sigma},\ B(\sigma) := \sum_p\sum_{k\ge2}\frac{1}{kp^{k\sigma}}.
+            \end{equation*}
+            By monotone convergence, $B(\sigma)\to B$ as $\sigma\to1^+$. By \cref{prop:zeta_continuation}, $\zeta(\sigma) = \frac{1}{\sigma-1}\left(1+O(\sigma-1)\right)$, so $\log\zeta(\sigma) = -\log(\sigma-1) + o(1)$. Hence
+            \begin{equation}\label{eq:mertens_iii_P_first}
+                P(\sigma) = -\log(\sigma-1) - B + o(1), \qquad \sigma\to1^+.
+            \end{equation}
+
+            Second, let $S(t) = \sum_{p\le t}\frac 1p$ and $E(t) = S(t) - \log_2 t - c$, so that $\lvert E(t)\rvert\le \frac{K'}{\log t}$ for $t\ge2$ by the second estimate. By \cref{thm:Abel_Summation_formula} with $f(t) = t^{1-\sigma}$ on $(3/2,N]$, and since $S(N)N^{1-\sigma}\to0$ as $N\to\infty$,
+            \begin{equation*}
+                P(\sigma) = (\sigma-1)\int_2^\infty\frac{S(t)}{t^\sigma}\,dt = \underbrace{(\sigma-1)\int_2^\infty\frac{\log_2 t}{t^\sigma}\,dt}_{I_1} + \underbrace{c(\sigma-1)\int_2^\infty\frac{dt}{t^\sigma}}_{I_2} + \underbrace{(\sigma-1)\int_2^\infty\frac{E(t)}{t^\sigma}\,dt}_{I_3}.
+            \end{equation*}
+            \begin{itemize}
+                \item $I_2 = c\,2^{1-\sigma}\to c$.
+                \item Since $\int_1^2\lvert\log_2 t\rvert\,dt<\infty$, we can start the integral of $I_1$ at $1$ with an error $o(1)$. With the changes of variables $t = e^v$ and then $u = (\sigma-1)v$, and by \cref{lem:gamma_integral},
+                    \begin{equation*}
+                        \begin{aligned}
+                        (\sigma-1)\int_1^\infty\frac{\log_2 t}{t^\sigma}\,dt &= (\sigma-1)\int_0^\infty e^{-(\sigma-1)v}\log v\,dv\\
+                        &= \int_0^\infty e^{-u}\big(\log u - \log(\sigma-1)\big)\,du = -\gamma-\log(\sigma-1).
+                        \end{aligned}
+                    \end{equation*}
+                \item With $t = e^v$ and $V = \frac{1}{\sigma-1}$ (we take $\sigma$ close enough to $1$ so that $V>\log 2$),
+                    \begin{equation*}
+                        \begin{aligned}
+                        \lvert I_3\rvert&\le K'(\sigma-1)\int_{\log 2}^\infty\frac{e^{-(\sigma-1)v}}{v}\,dv\le K'(\sigma-1)\left(\int_{\log 2}^{V}\frac{dv}{v} + \frac1V\int_V^\infty e^{-(\sigma-1)v}\,dv\right)\\
+                        &\ll (\sigma-1)\left(\log\frac{1}{\sigma-1} + 1\right),
+                        \end{aligned}
+                    \end{equation*}
+                    which tends to $0$.
+            \end{itemize}
+            Hence $P(\sigma) = -\log(\sigma-1) + c - \gamma + o(1)$. Comparing with \cref{eq:mertens_iii_P_first}, we get $c-\gamma = -B$, that is $c + B = \gamma$.
+    \end{enumerate}
+\end{proof}
+
+\begin{corollary}
+    There are infinitely many primes.
+\end{corollary}
+\begin{proof}
+    By \cref{thm:Mertens} \ref{thm:Mertens:ii}, $\sum_{p\le x}\frac1p\to\infty$ as $x\to\infty$. A finite set of primes would give a bounded sum.
+\end{proof}

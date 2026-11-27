@@ -1,106 +1,124 @@
 \section{Dirichlet $L$-functions}
 \subsection{Definition and basic properties}
 \begin{definition}[$L$-function]\leavevmode\\
-    Let $\chi(a)$ a Dirichlet character $\pmod m$, $L(s,\chi):\{s \in \mathbb{C} \mid \Re(s)>1\} \to \mathbb{C}$ we denote the Dirichlet $L$-function:
+    Let $\chi$ be a Dirichlet character $\pmod q$. For $\Re(s)>1$, we define the Dirichlet $L$-function
     \begin{equation*}
-        L(s,\chi):= \sum_{n\ge 1}^{}\frac{\chi(n)}{n^s}
+        L(s,\chi):= \sum_{n\ge 1}\frac{\chi(n)}{n^s}.
     \end{equation*}
 \end{definition}
-Since $\lvert \chi(a)\rvert\le 1 \text{, }\forall a \in \mathbb{Z}$, we have that the sum is absolutely convergent for $\Re(s) > 1$. Therefore, since $\chi$ is completely multiplicative, can use the Euler product (see \cref{thm:euler-product}) to get:
+Since $\lvert \chi(a)\rvert\le 1$ for all $a \in \mathbb{Z}$, the series is absolutely convergent for $\Re(s) > 1$. Since $\chi$ is completely multiplicative, we can use the Euler product (see \cref{thm:euler-product}) to get:
 \begin{equation}\label{eq:L-function_euler_product}
-    L(s,\chi)= \prod_{p \text{ prime}}\left(\chi(1) + \frac{\chi(p)}{p^s} + \frac{\chi(p^2)}{p^{2s} }+ \dots\right) = \prod_{p \text{ prime }}\left(1-\frac{\chi(p)}{p^s}\right)^{-1}
+    L(s,\chi)= \prod_{p}\left(\chi(1) + \frac{\chi(p)}{p^s} + \frac{\chi(p^2)}{p^{2s} }+ \dots\right) = \prod_{p}\left(1-\frac{\chi(p)}{p^s}\right)^{-1}, \qquad \Re(s)>1.
 \end{equation}
-For the principal character, we have the following:
+For the principal character, $\chi_0(p) = 0$ if $p\mid q$ and $\chi_0(p) = 1$ otherwise, so
 \begin{equation}\label{eq:principal_char_l_function_relation}
-    L(s,\chi_0) =   \prod_{p \nmid m}\left(1-\frac{\chi_0(p)}{p^s}\right)^{-1}  = \prod_{p \mid m} \left(1-\frac{1}{p^s}\right) \zeta(s)
+    L(s,\chi_0) =   \prod_{p \nmid q}\left(1-\frac{1}{p^s}\right)^{-1}  = \prod_{p \mid q} \left(1-\frac{1}{p^s}\right) \zeta(s).
 \end{equation}
-Therefore, $L(s,\chi_0)$ has a simple pole in $s=1$.
+The finite product $\prod_{p\mid q}(1-p^{-s})$ is entire and equals $\prod_{p\mid q}(1-\frac1p) = \frac{\phi(q)}{q}\neq0$ at $s=1$ (\cref{prop:phi_formula}). Therefore, by \cref{prop:zeta_continuation}, $L(s,\chi_0)$ extends to a meromorphic function on $\Re(s)>0$ whose only pole is a simple pole at $s=1$, with residue $\frac{\phi(q)}{q}$.
+
+For the non-principal characters, the situation is better: the cancellations in the values of $\chi$ remove the pole.
 \begin{lemma}\label{lem:upper_bound_dir_char_sum}
-    Let $\chi \pmod m$ and $A<B \in \mathbb{N}$, then 
+    Let $\chi \neq \chi_0$ be a character $\pmod q$ and $A<B$ two real numbers. Then
     \begin{equation*}
-        \left\lvert\sum_{A\le n \le  B}^{}\chi(n)\right\rvert \leq m
+        \left\lvert\sum_{A< n \le  B}\chi(n)\right\rvert \leq q.
     \end{equation*}
 \end{lemma}
 \begin{proof}
-     Let $\alpha = \lfloor\frac{ B-A}{q}\rfloor>0$ . Since $\chi$ is periodic, we have that :
-    \begin{equation*}
-        \left|\sum_{A\le n \le  B}^{}\chi(n)\right|\leq \left|\sum_{k=0}^{ \alpha-1 } \sum_{j=A +k \alpha}^{A +k \alpha + m} \chi(j)\right|+ \sum_{n=1}^{m} \lvert \chi(n) \rvert.
-    \end{equation*}
-Using the first orthogonality relation of \cref{thm:orthogonality_rel}, we get that 
-\begin{equation*}
-    \sum_{j=A +k \alpha}^{A +k \alpha + m} \chi(j) = 0.
-\end{equation*}
-Thus, 
-\begin{equation*}
-    \sum_{A\le n \le  B}^{}\chi(n) \leq \sum_{n=1}^{m} \lvert \chi(n) \rvert =m.
-\end{equation*}
+    We cut the integers of $(A,B]$ into $k\ge 0$ consecutive blocks of $q$ consecutive integers, followed by fewer than $q$ remaining integers. A block of $q$ consecutive integers is a complete set of residues $\pmod q$, so, by periodicity and by the first orthogonality relation of \cref{thm:orthogonality_rel} (with $\chi \neq \chi_0$), the sum of $\chi$ over each block is $0$. The remaining sum has fewer than $q$ terms, each of modulus at most $1$.
 \end{proof}
+
+\begin{lemma}\label{lem:tail_dir_char_sum}
+    Let $\chi\neq\chi_0$ be a character $\pmod q$, $\alpha>0$ and $z \ge 1$. Then the series $\sum_{n>z}\chi(n)n^{-\alpha}$ converges and
+    \begin{equation*}
+        \left\lvert\sum_{n>z}\frac{\chi(n)}{n^\alpha}\right\rvert\le\frac{2q}{z^\alpha}.
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    Let $S(t) = \sum_{z<n\le t}\chi(n)$, so that $\lvert S(t)\rvert \le q$ by \cref{lem:upper_bound_dir_char_sum} and $S(z) = 0$. By \cref{thm:Abel_Summation_formula} with $f(t) = t^{-\alpha}$, for $N>z$,
+    \begin{equation*}
+        \sum_{z<n\le N}\frac{\chi(n)}{n^\alpha} = \frac{S(N)}{N^\alpha} + \alpha\int_z^N\frac{S(t)}{t^{\alpha+1}}\,dt.
+    \end{equation*}
+    When $N\to\infty$, the first term tends to $0$ and the integral converges absolutely, with $\left\lvert\alpha\int_z^\infty S(t)t^{-\alpha-1}\,dt\right\rvert\le q\alpha\int_z^\infty t^{-\alpha-1}\,dt = qz^{-\alpha}\le 2qz^{-\alpha}$.
+\end{proof}
+
 \begin{theorem}\label{thm:analytic_continuation_L-function}
-    Let $\chi$ be a non-trivial character $\pmod m$, then there exist an analytic continuation of $L(s,\chi),$ $\forall s \in \mathbb{C}$ with $\Re(s)>0$ written:
-    \begin{equation}
-       L(s,\chi) =  s\int_{1 }^{\infty}\frac{S(t,\chi)}{t^{s+1}}dt,
-    \end{equation}
-    with $S(t,\chi) = \sum_{n\le t}^{}\chi(t)$.
+    Let $\chi$ be a non-principal character $\pmod q$ and $S(t,\chi) = \sum_{n\le t}\chi(n)$. For $\Re(s)>0$, the series $\sum_{n\ge 1}\chi(n)n^{-s}$ converges and
+    \begin{equation*}
+       \sum_{n\ge1}\frac{\chi(n)}{n^s} =  s\int_{1 }^{\infty}\frac{S(t,\chi)}{t^{s+1}}\,dt.
+    \end{equation*}
+    The right-hand side is holomorphic in $\Re(s)>0$; it gives the analytic continuation of $L(s,\chi)$ to $\Re(s)>0$. Moreover, $L(\sigma,\overline\chi) = \overline{L(\sigma,\chi)}$ for real $\sigma>0$.
 \end{theorem}
 \begin{proof}
-    Using Abel Summation formula (see \cref{thm:Abel_Summation_formula}), we get 
+    Let $N\ge1$ be an integer. Using \cref{thm:Abel_Summation_formula} with $f(t) = t^{-s}$ on $(1,N]$ and adding the term $n=1$ (note $S(1,\chi) = \chi(1) = 1$), we get
     \begin{equation*}
-        L(s,\chi)= \lim_{N \to \infty}\sum_{n = 1}^{N}\frac{\chi(n)}{n^s} =\lim_{N \to \infty}\frac{S(N,\chi)}{N^s} -  \int_{1}^{N}\frac{dS(t,\chi)}{t^s}
+        \sum_{n = 1}^{N}\frac{\chi(n)}{n^s} = 1 + \frac{S(N,\chi)}{N^s} - S(1,\chi) + s\int_{1}^{N}\frac{S(t,\chi)}{t^{s+1}}\,dt = \frac{S(N,\chi)}{N^s} + s\int_{1}^{N}\frac{S(t,\chi)}{t^{s+1}}\,dt.
     \end{equation*}
-    By \cref{lem:upper_bound_dir_char_sum}, we know that $\left\lvert S(t,\chi)\right\rvert\le m $, then $\frac{S(N,\chi)}{N^s} \xrightarrow{N \to \infty}0$.
-    We then have the following using an integration by part:
-    \begin{equation}
-        L(s,\chi) = -s \int_{1}^{\infty}\frac{dS(t,\chi)}{t^s} = s \int_{1}^{\infty}\frac{S(t,\chi)}{t^{s+1}}dt
-    \end{equation}
-    Now we can easily show that the integral is absolutely convergent. Let $s = \sigma + iy$ , we get:
+    By \cref{lem:upper_bound_dir_char_sum}, $\left\lvert S(t,\chi)\right\rvert\le q $. Let $s = \sigma + it$ with $\sigma >0$. Then $\left\lvert S(N,\chi)N^{-s}\right\rvert \le qN^{-\sigma}\xrightarrow{N \to \infty}0$, and the integral is absolutely convergent since
     \begin{equation*}
-        \left\lvert L(s,\chi)\right\rvert\leq m \lvert s\rvert \int_{1 }^{\infty }t^{-\sigma - 1}dt = m|s| \left[ \frac{t^{-\sigma}}{-\sigma}\right]^{\infty}_{1}
-    \end{equation*} 
-    Therefore, this integral is absolutely convergent for $\Re(s) > 0$.
+        \int_{1 }^{\infty }\left\lvert\frac{S(t,\chi)}{t^{s+1}}\right\rvert dt\le q \int_{1 }^{\infty }t^{-\sigma - 1}\,dt = \frac{q}{\sigma}.
+    \end{equation*}
+    Hence the series converges and is equal to the integral. For $\Re(s)>1$, this is $L(s,\chi)$. By \cref{lem:holomorphic_integral} applied to $g(t) = S(t,\chi)$ (piecewise constant and bounded by $q$), the right-hand side is holomorphic in $\Re(s)>0$.
+
+    Finally, $\overline\chi$ is also non-principal, and for real $\sigma>0$, $L(\sigma,\overline\chi) = \sum_n\overline{\chi(n)}n^{-\sigma} = \overline{L(\sigma,\chi)}$ by the convergence of the series.
 \end{proof}
 
-
-
-
-
-
-\begin{theorem}
-    \begin{equation*} \label{thm:L-function_neq_0_non-trivial}
+\subsection{Non-vanishing at $s=1$}
+\begin{theorem}\label{thm:L-function_neq_0_non-trivial}
+    \begin{equation*}
         L(1,\psi)\neq 0 \text{, for all non-principal character } \psi \pmod q .
     \end{equation*}
 \end{theorem}
 \begin{proof}
-    Suppose $ L(1,\psi_0)= 0$ for some non-principal character $\psi_0 \pmod q$ and let
-\begin{equation*}
-    A(s) = \prod_{\chi \pmod q} L(s,\chi)
-\end{equation*}
-\Cref{eq:principal_char_l_function_relation} tells us that $A(s)$ has a simple pole in $s=1$ that cancels out with the zero of $L(1,\psi_0)$. Therefore, $A(s)$ is analytic for $\Re(s) >0$ by \cref{thm:analytic_continuation_L-function}.
-We now want to create a contradiction.We have that
-\begin{equation*}
-    \log A(s) = \sum_{\chi \pmod q}^{}\log L(s,\chi) .
-\end{equation*}
-However, by using Euler product (see \cref{thm:euler-product}), and the Taylor expansion of the $\log$, we get that
-\begin{equation*}
-    \log L(s,\chi)  = \log\prod_{p \nmid q}\left(1-\frac{\chi(p)}{p}\right)^{-1} = -\sum_{p \nmid q}\log\left(1-\frac{\chi(p)}{p}\right)= \sum_{p  \nmid q }^{} \sum_{k \ge 1}^{} \frac{\chi(p)^k}{kp^{ks}}
-\end{equation*}
-We then use the orthogonality relation (see \cref{thm:orthogonality_rel}) to get the following:
-\begin{equation*}
-    \log A(s) = \sum_{\substack{p \text{ premier }\\k\ge 1}}^{}\frac{1}{kp^{ks}} \sum_{\chi \tpmod q}^{}\chi(p^k) = \phi(q) \sum_{\substack{p \equiv 1 \tpmod q\\ k\ge 1}}^{} \frac{1}{kp^{ks}}
-\end{equation*}
-Let $m_p := \ord_q(p)$, then we can write:
-\begin{equation*}
-    \log A(s) =\phi(q) \sum_{p \nmid q}\sum_{\substack{k \ge 1 \\ m_p \mid k}}^{} \frac{1}{kp^{ks}} = \phi(q)\sum_{p \nmid q}^{} \sum_{j\ge1}^{}\frac{1}{jm_p p^{jm_p s}}
-\end{equation*}
-Using Taylor expansion of $\log$, we obtain 
-\begin{equation*}
-    \log A(s) =  \sum_{p \nmid q}^{} \frac{-\phi(q)}{m_p} \log(1 - \frac{1}{p^{m_ps}})
-\end{equation*}
-Taking the exponential on both sides we get:
-\begin{equation}\label{eq:product_l_function}
-    A(s) = \prod_{p \nmid q} \left(1- \frac{1}{p^{m_ps}}\right)^{\frac{-\phi(q)}{m_p}}
-\end{equation}
-Suppose now $\Im(\psi) \neq 0$, then $L(1,\overline{\psi}) = 0$ which implies that $A(s)$
-has two zeros in $s=1$ and thus, $A(1)=0$. However, \cref{eq:product_l_function} tells us that $A(1)\ge 1$. This mean that $\exists! \psi \tpmod q$ such that $L(1,\psi)=0$.
+    We can suppose $q \ge 2$, since there is no non-principal character $\pmod 1$.
+
+    \emph{Step 0: the product of all $L$-functions.} For $\sigma>1$ real and $\chi\pmod q$, let
+    \begin{equation*}
+        \ell(\sigma,\chi) := \sum_{p}\sum_{k\ge1}\frac{\chi(p)^k}{kp^{k\sigma}},
+    \end{equation*}
+    which is absolutely convergent since $\sum_p\sum_k p^{-k\sigma} <\infty$. Since $\exp\left(\sum_{k\ge1}\frac{u^k}{k}\right) = (1-u)^{-1}$ for $\lvert u\rvert<1$, \cref{eq:L-function_euler_product} gives $\exp\big(\ell(\sigma,\chi)\big) = L(\sigma,\chi)$: $\ell(\sigma,\chi)$ is a logarithm of $L(\sigma,\chi)$. We switch the sums and use the second orthogonality relation (see \cref{thm:orthogonality_rel} \ref{item:orthogonality_rel_item:ii}) to get
+    \begin{equation*}
+        \sum_{\chi \bmod q}\ell(\sigma,\chi) = \sum_{p}\sum_{k\ge 1}\frac{1}{kp^{k\sigma}} \sum_{\chi \bmod q}\chi(p^k) = \phi(q) \sum_{\substack{p,\ k\ge 1\\ p^k \equiv 1 \tpmod q}} \frac{1}{kp^{k\sigma}}\ge 0.
+    \end{equation*}
+    Therefore, the function $A(s) := \prod_{\chi \bmod q} L(s,\chi)$ satisfies
+    \begin{equation}\label{eq:product_l_function}
+        A(\sigma) = \exp\Big(\sum_{\chi \bmod q}\ell(\sigma,\chi)\Big)\ge 1, \qquad \sigma >1.
+    \end{equation}
+
+    \emph{Step 1: $\psi$ is not real.} Suppose $L(1,\psi) = 0$ for a character $\psi$ with $\psi\neq\overline\psi$. By \cref{thm:analytic_continuation_L-function}, $L(1,\overline\psi) = \overline{L(1,\psi)} = 0$. Near $s=1$, we can write $L(s,\psi) = (s-1)g_1(s)$ and $L(s,\overline\psi) = (s-1)g_2(s)$ with $g_1,g_2$ holomorphic, while $L(s,\chi_0) = \frac{h(s)}{s-1}$ with $h$ holomorphic (\cref{eq:principal_char_l_function_relation}), and all the other $L(s,\chi)$ are holomorphic at $s = 1$ (\cref{thm:analytic_continuation_L-function}). Hence
+    \begin{equation*}
+        A(s) = (s-1)\,h(s)g_1(s)g_2(s)\prod_{\chi\neq\chi_0,\psi,\overline\psi}L(s,\chi)
+    \end{equation*}
+    is holomorphic at $s = 1$ with $A(1) = 0$. In particular $A(\sigma) \to 0$ as $\sigma\to1^+$, which contradicts \cref{eq:product_l_function}.
+
+    \emph{Step 2: $\psi$ is real.} Now $\psi$ takes values in $\{-1,0,1\}$. Let $r = 1*\psi$, that is $r(n) = \sum_{d\mid n}\psi(d)$. It is multiplicative (\cref{prop:convolution_multiplicative}) and, for a prime power,
+    \begin{equation*}
+        r(p^k) = \sum_{j=0}^{k}\psi(p)^j =
+        \begin{cases}
+            k+1 & \text{if } \psi(p) = 1,\\
+            1 & \text{if } \psi(p) = 0,\\
+            1 & \text{if } \psi(p) = -1 \text{ and $k$ is even},\\
+            0 & \text{if } \psi(p) = -1 \text{ and $k$ is odd}.
+        \end{cases}
+    \end{equation*}
+    Thus $r(n)\ge0$ for all $n$, and $r(n)\ge 1$ if $n$ is a perfect square. Let $x \ge 1$ and consider
+    \begin{equation*}
+        T(x) := \sum_{n\le x}\frac{r(n)}{\sqrt n}.
+    \end{equation*}
+    \emph{Lower bound.} Keeping only the squares $n = j^2$,
+    \begin{equation*}
+        T(x)\ge\sum_{j\le\sqrt x}\frac{r(j^2)}{j}\ge\sum_{j\le\sqrt x}\frac1j\ge\log\sqrt x = \frac12\log x.
+    \end{equation*}
+    \emph{Upper bound.} Let $y = \sqrt x$. The pairs $(d,k)$ with $dk\le x$ split into those with $d\le y$, and those with $d>y$, for which $k\le x/d<y$. Hence
+    \begin{equation*}
+        T(x) = \sum_{dk\le x}\frac{\psi(d)}{\sqrt{dk}} = \underbrace{\sum_{d\le y}\frac{\psi(d)}{\sqrt d}\sum_{k\le x/d}\frac{1}{\sqrt k}}_{\Sigma_1} + \underbrace{\sum_{k\le y}\frac{1}{\sqrt k}\sum_{y<d\le x/k}\frac{\psi(d)}{\sqrt d}}_{\Sigma_2}.
+    \end{equation*}
+    For $\Sigma_1$, since $x/d\ge y \ge 1$, \cref{prop:classical_sums} \ref{prop:classical_sums:sqrt} gives $\sum_{k\le x/d}k^{-1/2} = 2\sqrt{x/d} + C + O(\sqrt{d/x})$, so
+    \begin{equation*}
+        \Sigma_1 = 2\sqrt x\sum_{d\le y}\frac{\psi(d)}{d} + C\sum_{d\le y}\frac{\psi(d)}{\sqrt d} + O\Big(\frac{1}{\sqrt x}\sum_{d\le y}1\Big).
+    \end{equation*}
+    By \cref{thm:analytic_continuation_L-function} and \cref{lem:tail_dir_char_sum}, $\sum_{d\le y}\frac{\psi(d)}{d} = L(1,\psi) + O\left(\frac1y\right)$ and $\sum_{d\le y}\frac{\psi(d)}{\sqrt d} = L(\tfrac12,\psi) + O(y^{-1/2}) = O(1)$. Since $y = \sqrt x$, we get $\Sigma_1 = 2\sqrt x\,L(1,\psi) + O(1)$.
+
+    For $\Sigma_2$, the inner sum is the difference of the two tails $\sum_{d>y}$ and $\sum_{d>x/k}$, with $x/k\ge y$, so it is at most $4qy^{-1/2}$ in modulus by \cref{lem:tail_dir_char_sum}. Since $\sum_{k\le y}k^{-1/2}\le 2\sqrt y$, we get $\lvert\Sigma_2\rvert\le 8q$.
+
+    Hence $T(x) = 2\sqrt x\,L(1,\psi) + O(1)$. If $L(1,\psi) = 0$, then $T(x) = O(1)$, which contradicts $T(x)\ge\frac12\log x$. Therefore $L(1,\psi)\neq0$.
 \end{proof}
-
-

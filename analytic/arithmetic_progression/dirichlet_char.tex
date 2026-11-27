@@ -1,114 +1,130 @@
 \section{Dirichlet Character}
 
-
-
 \subsection{Definition and basic properties}
 \begin{definition}[Dirichlet character]\label{def:dirchar}
-    We say that $\chi : \mathbb{Z} \to \mathbb{C}$ is a Dirichlet character $\mod m$ if 
+    Let $m \ge 1$. We say that $\chi : \mathbb{Z} \to \mathbb{C}$ is a Dirichlet character $\pmod m$ if
     \begin{enumerate}[label={\upshape\roman*)}]
-        \item\label{def:dirchar:multiplicity}$\chi(ab) = \chi(a)\chi(b), \text{ } \forall a,b \in \mathbb{Z}$\\
-        \item\label{def:dirchar:zero_condition}$\chi(a) =0 \Leftrightarrow (a,m) \neq1$\\
-        \item\label{def:dirchar:periodicity}$\chi(a+m) = \chi(a)$
+        \item\label{def:dirchar:multiplicity}$\chi(ab) = \chi(a)\chi(b), \text{ } \forall a,b \in \mathbb{Z}$;
+        \item\label{def:dirchar:zero_condition}$\chi(a) =0 \Leftrightarrow (a,m) \neq1$;
+        \item\label{def:dirchar:periodicity}$\chi(a+m) = \chi(a)$, $\forall a \in \mathbb{Z}$.
     \end{enumerate}
 \end{definition}
-Using \cref{def:dirchar} \ref{def:dirchar:multiplicity}, we obtain the following: $\chi(1)= \chi(1\cdot1) = \chi(1)\chi(1) $ which implies $\chi(1)=1$.
+Using \cref{def:dirchar} \ref{def:dirchar:multiplicity}, we obtain the following: $\chi(1)= \chi(1\cdot1) = \chi(1)\chi(1)$ and $\chi(1)\neq0$, which implies $\chi(1)=1$. By periodicity, $\chi(a)$ only depends on the class of $a \pmod m$, so we can see $\chi$ as a function on $\mathbb{Z}/m\mathbb{Z}$.
 
 \begin{definition}[Principal character]
-    We define 
-    $$\chi_0(n):= 
+    We define
+    $$\chi_0(n):=
     \begin{cases}
-        1 \text{ if } (n,m)=1\\
-        0 \text{ if } (n,m) \ge 1
+        1 & \text{if } (n,m)=1,\\
+        0 & \text{if } (n,m) > 1,
     \end{cases}$$
-    The principal character$\pmod m$.
+    the principal character $\pmod m$.
 \end{definition}
-We usually denote the non-principal character with $\psi$.
+We usually denote a non-principal character with $\psi$.
+
+It is convenient to work in the more general setting of finite abelian groups. Let $G$ be a finite abelian group. A \emph{character} of $G$ is a group homomorphism $\lambda : G\to\mathbb{C}^\times$. We denote by $\widehat G$ the set of characters of $G$.
+
+\begin{lemma}\label{lem:dirchar_group_char}
+    The Dirichlet characters $\pmod m$ are in bijection with the characters of $G = \left(\mathbb{Z}/m\mathbb{Z}\right)^\times$: to $\chi$, we associate its restriction $\lambda(a \bmod m) = \chi(a)$ for $(a,m) = 1$; conversely, to $\lambda\in\widehat G$, we associate $\chi(n) = \lambda(n\bmod m)$ if $(n,m) = 1$ and $\chi(n) = 0$ otherwise.
+\end{lemma}
+\begin{proof}
+    If $\chi$ is a Dirichlet character, its restriction is well defined by periodicity, takes non-zero values by \ref{def:dirchar:zero_condition} and is multiplicative by \ref{def:dirchar:multiplicity}, so it is a homomorphism $G\to\mathbb{C}^\times$. Conversely, let $\lambda \in \widehat G$ and $\chi$ defined as above. Conditions \ref{def:dirchar:zero_condition} and \ref{def:dirchar:periodicity} are clear. For \ref{def:dirchar:multiplicity}: if $(a,m) = (b,m) = 1$, then $(ab,m) = 1$ and $\chi(ab) = \lambda(a)\lambda(b) = \chi(a)\chi(b)$; otherwise $(ab,m)\neq1$ and both sides are $0$. The two maps are inverse of each other since a Dirichlet character is determined by its values on the integers coprime to $m$.
+\end{proof}
+
+The key fact on characters is that there are \emph{many} of them.
+\begin{lemma}[Extension of characters]\label{lem:extension_char}
+    Let $G$ be a finite abelian group and $H$ a subgroup of $G$. Every character of $H$ extends to exactly $[G:H]$ characters of $G$.
+\end{lemma}
+\begin{proof}
+    We proceed by induction on $[G:H]$. If $[G:H] = 1$, there is nothing to prove. Otherwise, let $g\in G\setminus H$, let $H' = \langle H,g\rangle$ and let $n\ge 2$ be the smallest integer such that $g^n\in H$ (it exists since $g^{\lvert G\rvert} = 1 \in H$).
+
+    Every element of $H'$ can be written as $hg^j$ with $h\in H$ and $0\le j<n$, and this writing is unique: if $hg^j = h'g^{j'}$ with $0 \le j' \le j < n$, then $g^{j-j'}\in H$, so $j = j'$ by minimality of $n$, and then $h = h'$. In particular $[H':H] = n$.
+
+    Let $\lambda\in\widehat H$. If $\lambda'$ is an extension of $\lambda$ to $H'$, then $w = \lambda'(g)$ satisfies $w^n = \lambda(g^n)$, and $\lambda'(hg^j) = \lambda(h)w^j$, so $\lambda'$ is determined by $w$. Conversely, let $w$ be one of the $n$ complex roots of $w^n = \lambda(g^n)$ (note $\lambda(g^n)\neq0$) and define $\lambda'(hg^j) = \lambda(h)w^j$, which is well defined by uniqueness of the writing. It is a homomorphism: if $j + j' <n$, it is clear, and if $j + j'\ge n$, then $hg^j\cdot h'g^{j'} = (hh'g^n)g^{j+j'-n}$ and
+    \begin{equation*}
+        \lambda'\left(hh'g^n g^{j+j'-n}\right) = \lambda(hh')\lambda(g^n)w^{j+j'-n} = \lambda(h)\lambda(h')w^{j+j'} = \lambda'(hg^j)\lambda'(h'g^{j'}).
+    \end{equation*}
+    So $\lambda$ has exactly $n = [H':H]$ extensions to $H'$. Since $[G:H'] < [G:H]$, by induction each of them has exactly $[G:H']$ extensions to $G$, and two different extensions to $H'$ give different extensions to $G$. Every extension of $\lambda$ to $G$ is obtained this way (by restricting it to $H'$). Thus $\lambda$ has $[H':H][G:H'] = [G:H]$ extensions to $G$.
+\end{proof}
 
 \begin{proposition}[Basic properties of Dirichlet character]
     \label{prop:number_dir_char}
-    There exist $\phi(m)$ distinct Dirichlet characters $\pmod m$ and the set of all distincts characters $\pmod m$ form a finite abelian group  under multiplication denoted $\widehat{\left(\mathbb{Z}/m \mathbb{Z}\right)}^{\times}$. We also have $\widehat{\left(\mathbb{Z}/m \mathbb{Z}\right)}^{\times} \cong\left(\mathbb{Z}/m \mathbb{Z}\right)^{\times}$.
+    There exist $\phi(m)$ distinct Dirichlet characters $\pmod m$ and the set of all distinct characters $\pmod m$ forms a finite abelian group under multiplication, denoted $\widehat{\left(\mathbb{Z}/m \mathbb{Z}\right)^{\times}}$, whose identity is $\chi_0$. The values $\chi(a)$, for $(a,m) = 1$, are $\phi(m)$-th roots of unity, so $\chi^{-1} = \overline{\chi}$. We also have $\widehat{\left(\mathbb{Z}/m \mathbb{Z}\right)^{\times}} \cong\left(\mathbb{Z}/m \mathbb{Z}\right)^{\times}$.
 \end{proposition}
 \begin{proof}
-    Let $G$ be the set of Dirichlet character  $\pmod m$, we take $\chi,\chi' \in G$ and $a \neq 0\in (\mathbb{Z}/m \mathbb{Z})^\times$.  We can clearly see that if we provide $G$ with a multiplication defined as $\chi \chi'(a) := \chi(a)\chi'(a)$ using the principal character as the identity. We defind $\chi^{-1}$ using the fact that there exist: $a^{-1} \in (\mathbb{Z}/m \mathbb{Z})$ such that $a a^{-1} \equiv 1 \pmod m$ and therefore $\chi(a) \chi(a^{-1}) = \chi(1) =1$. We can take $\chi^{-1}(a) = \chi(a^{-1})$ and for $\beta \in \mathbb{Z}$, we have that:
-    \begin{equation*}
-        \chi(\beta)\chi^{-1}(\beta) = \begin{cases}
-            0 &\text{ if } (\beta,m)\ge1\\
-            1 &\text{ if } (\beta,m)=1
-            \end{cases} = \chi_0(\beta).
-    \end{equation*}
-    We observe that $a^{\phi(m)-1} \equiv 1 \pmod m $ and  using \ref{def:dirchar:multiplicity} of \cref{def:dirchar}, we get $\chi(a)^{\phi(m)-1} = \chi(1) = 1$, which implies that $\chi(a)$ is a root of the unity.
+    Let $G = \left(\mathbb{Z}/m\mathbb{Z}\right)^\times$, so that $\lvert G\rvert = \phi(m)$. By \cref{lem:dirchar_group_char}, it is enough to study $\widehat G$.
+
+    \emph{Number.} The trivial group $H = \{1\}$ has exactly one character, so by \cref{lem:extension_char}, $\lvert\widehat G\rvert = [G:\{1\}] = \phi(m)$.
+
+    \emph{Group structure.} If $\chi,\chi'\in\widehat G$, then $\chi\chi'(a) := \chi(a)\chi'(a)$ is again a homomorphism, the product is associative and commutative, and $\chi_0$ is the identity. For $(a,m)=1$, Euler's theorem (\cref{thm:euler_theorem}) gives $a^{\phi(m)}\equiv1\pmod m$, so $\chi(a)^{\phi(m)} = \chi(a^{\phi(m)}) = \chi(1) = 1$: $\chi(a)$ is a root of unity, hence $\lvert\chi(a)\rvert = 1$ and $\chi(a)^{-1} = \overline{\chi(a)}$. Thus $\overline\chi$ is a character and $\chi\overline\chi = \chi_0$.
+
+    \emph{Isomorphism.} If $C_n = \langle g\rangle$ is cyclic of order $n$, a character is determined by $\lambda(g)$, which can be any $n$-th root of unity; hence $\lambda \mapsto \lambda(g)$ is an isomorphism $\widehat{C_n}\cong\mu_n\cong C_n$. If $G = G_1\times G_2$, then $(\lambda_1,\lambda_2)\mapsto \left((g_1,g_2)\mapsto\lambda_1(g_1)\lambda_2(g_2)\right)$ is an isomorphism $\widehat{G_1}\times\widehat{G_2}\cong \widehat{G}$ (the inverse is given by restriction to $G_1\times\{1\}$ and $\{1\}\times G_2$). By the structure theorem of finite abelian groups, $G$ is a product of cyclic groups, so $\widehat G\cong G$.
 \end{proof}
-
-
-
+\noindent\emph{Remark.} The isomorphism $\widehat G\cong G$ is not canonical and will not be used. Only the facts that $\lvert\widehat G\rvert = \lvert G\rvert$ and \cref{lem:existence_dir_char} below will matter.
 
 \subsection{Orthogonality relation}
 To prove the orthogonality relation we need the following lemma:
 \begin{lemma}\label{lem:existence_dir_char}\leavevmode
     \begin{enumerate}[label={\upshape\roman*)}]
-        \item Let $m\ge 2$ and $a \in \mathbb{Z}$ such that $(a,m)=1$ with $a\not \equiv 1 \pmod m$, there exist $\chi \pmod m$ such that $\chi(a) \neq 1$
-        \item For $m\ge 2$, let  $\chi \text{ be a character }\pmod m  \text{ where }\chi \neq \chi_0$, then there exist $a \in \left(\mathbb{Z}/m\mathbb{Z}\right)$ such that $\chi(a)\neq 0,1$
+        \item\label{lem:existence_dir_char:i} Let $m\ge 2$ and $a \in \mathbb{Z}$ such that $(a,m)=1$ with $a\not \equiv 1 \pmod m$. There exists $\chi \pmod m$ such that $\chi(a) \neq 1$.
+        \item\label{lem:existence_dir_char:ii} For $m\ge 2$, let $\chi$ be a character $\pmod m$ with $\chi \neq \chi_0$. Then there exists $a \in \mathbb{Z}$ with $(a,m) = 1$ such that $\chi(a)\neq 1$ (in particular $\chi(a) \neq 0,1$).
     \end{enumerate}
 \end{lemma}
 \begin{proof}\leavevmode
     \begin{enumerate}[label={\upshape\roman*)}]
-        \item 
-        \item 
+        \item Let $G = \left(\mathbb{Z}/m\mathbb{Z}\right)^\times$ and let $H = \langle a\rangle$ be the subgroup generated by the class of $a$. Since $a\not\equiv1\pmod m$, the order $d$ of $a$ in $G$ satisfies $d\ge2$. The map $\lambda(a^j) = e^{2\pi ij/d}$ is a well defined character of $H$ (because $a^j = a^{j'}$ if and only if $d\mid j-j'$), and $\lambda(a) = e^{2\pi i/d}\neq1$. By \cref{lem:extension_char}, $\lambda$ extends to a character of $G$, which gives, by \cref{lem:dirchar_group_char}, a Dirichlet character $\chi$ with $\chi(a) \neq 1$.
+        \item The characters $\chi$ and $\chi_0$ are both $0$ on the integers not coprime to $m$. Since $\chi \neq\chi_0$, they must differ at some $a$ with $(a,m) = 1$, that is $\chi(a)\neq\chi_0(a) = 1$. Also $\chi(a) \neq 0$ by \cref{def:dirchar} \ref{def:dirchar:zero_condition}.
     \end{enumerate}
 \end{proof}
 
 \begin{theorem}[Orthogonality relation of Dirichlet character]\leavevmode
     \label{thm:orthogonality_rel}
     \begin{enumerate}[label={\upshape\roman*)}]
-        \item $\displaystyle\sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)}^{} \chi(a) = \begin{cases}
-                \phi(m)  &\text{ if } \chi= \chi_0\\
-                0 &\text{ if } \chi \neq \chi_0
+        \item $\displaystyle\sum_{a \in \mathbb{Z} / m \mathbb{Z}} \chi(a) = \begin{cases}
+                \phi(m)  &\text{ if } \chi= \chi_0,\\
+                0 &\text{ if } \chi \neq \chi_0;
             \end{cases}$
-        \item\label{item:orthogonality_rel_item:ii} $\displaystyle\sum_{\chi \mod m}^{} \chi(a) = \begin{cases}
-                \phi(m) &\text{ if } a \equiv 1 \pmod m \\
-                0 &\text{ if } a \not\equiv 1 \pmod m
+        \item\label{item:orthogonality_rel_item:ii} $\displaystyle\sum_{\chi \bmod m} \chi(a) = \begin{cases}
+                \phi(m) &\text{ if } a \equiv 1 \pmod m, \\
+                0 &\text{ if } a \not\equiv 1 \pmod m.
             \end{cases}$
     \end{enumerate}
 \end{theorem}
 
-
-
 \begin{proof}\leavevmode
     \begin{enumerate}[label={\roman*)}]
-        \item\label{1}Let $\chi = \chi_0$. We know that the number of element $a$ in $\left(\mathbb{Z} / m \mathbb{Z}\right)^{\times} $ such that $(a,m)=1$ is $\phi(m)$. We then have:
+        \item\label{1} Since $\chi(a) = 0$ when $(a,m) \neq 1$, we can restrict the sum to $a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}$. If $\chi = \chi_0$, every term is $1$ and there are $\phi(m)$ of them:
             \begin{equation*}
-                \sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}}^{} \chi_0(a)=  \sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)}^{} \mathds{1}_{(a,m)=1} = \phi(m)
+                \sum_{a \in \mathbb{Z} / m \mathbb{Z}} \chi_0(a)=  \sum_{a \in \mathbb{Z} / m \mathbb{Z}} \mathds{1}_{(a,m)=1} = \phi(m).
             \end{equation*}
-            Now suppose $\chi \neq \chi_0$ and, by \cref{lem:existence_dir_char}, we take $\alpha \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}$ such that $(\alpha,m) = 1$ and $\chi(\alpha) \neq 1$. We have the following:
+            Now suppose $\chi \neq \chi_0$ and, by \cref{lem:existence_dir_char} \ref{lem:existence_dir_char:ii}, take $\alpha$ with $(\alpha,m) = 1$ and $\chi(\alpha) \neq 1$. We have
             \begin{equation}\label{eq:multiplicity_dir_char}
-                \sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}}^{} \chi(\alpha)\chi(a) = \sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}}^{} \chi(\alpha a).
+                \chi(\alpha)\sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}} \chi(a) = \sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}} \chi(\alpha a).
             \end{equation}
-            We can only keeps the $a \in \left(\mathbb{Z} / m \mathbb{Z}\right)$ such that $(a,m)$ because otherwise  $\chi(a) =0$. If we take the all residues classes $\pmod m$ and we multiply it by coprime number to $m$ we get back all the residues classes. This implies:
+            Since $\alpha$ is invertible $\pmod m$, the map $a \mapsto \alpha a$ is a bijection of $\left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}$ onto itself. This implies:
             \begin{equation}\label{eq:complete_set_residu}
-                \sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}}^{} \chi(\alpha a)= \sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}}^{} \chi(a).
-    \end{equation}
-    Then we can solve the following equation using \cref{eq:multiplicity_dir_char} and \cref{eq:complete_set_residu}:
-    \begin{equation*}
-        (\chi(\alpha)-1)\sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}}^{} \chi( a) = 0 
-    \end{equation*}
-    Since we took $\alpha$ such that $\chi(\alpha) \neq 1 $ we get:
-    \begin{equation*}
-        \sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^\times}^{} \chi( a)= 0.
-    \end{equation*}
-\item Let $a \in \left(\mathbb{Z}/m\mathbb{Z}\right)$ such that $a \equiv 1 \pmod m$ , then by \cref{prop:number_dir_char} we have:
-        \begin{equation*}
-            \sum_{\chi \pmod m}^{} \chi(1) = \phi(m)
-        \end{equation*}
-        Now suppose $a\not \equiv 1 \pmod m$. By \cref{lem:existence_dir_char}, there exist $\chi'$ such that $\chi^*(a) \neq 1$. We use the same idea as in \ref{1}:
-        \begin{equation*}
-            \sum_{\chi \in \widehat{\left(\mathbb{Z}/m \mathbb{Z}\right)}}^{} \chi' \chi(a)=\sum_{\chi \in \widehat{\left(\mathbb{Z}/m \mathbb{Z}\right)}}^{}  \chi(a).
-        \end{equation*}
+                \sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}} \chi(\alpha a)= \sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}} \chi(a).
+            \end{equation}
+            Combining \cref{eq:multiplicity_dir_char} and \cref{eq:complete_set_residu}, we get
+            \begin{equation*}
+                (\chi(\alpha)-1)\sum_{a \in \left(\mathbb{Z} / m \mathbb{Z}\right)^{\times}} \chi( a) = 0.
+            \end{equation*}
+            Since we took $\alpha$ such that $\chi(\alpha) \neq 1 $, the sum is $0$.
+        \item If $a \equiv 1 \pmod m$, then $\chi(a) = \chi(1) = 1$ for every $\chi$ and, by \cref{prop:number_dir_char},
+            \begin{equation*}
+                \sum_{\chi \bmod m} \chi(a) = \phi(m).
+            \end{equation*}
+            If $(a,m)\neq1$, then every term is $0$. Now suppose $(a,m) = 1$ and $a\not \equiv 1 \pmod m$. By \cref{lem:existence_dir_char} \ref{lem:existence_dir_char:i}, there exists $\chi'$ such that $\chi'(a) \neq 1$. We use the same idea as in \ref{1}: since $\chi\mapsto\chi'\chi$ is a bijection of the group of characters onto itself,
+            \begin{equation*}
+                \chi'(a)\sum_{\chi \bmod m}\chi(a) = \sum_{\chi \bmod m} (\chi' \chi)(a)=\sum_{\chi \bmod m}  \chi(a).
+            \end{equation*}
+            Thus $(\chi'(a)-1)\sum_{\chi}\chi(a) = 0$ and the sum is $0$.
     \end{enumerate}
 \end{proof}
-We can slightly change \ref{item:orthogonality_rel_item:ii} by posing $a = \alpha \beta^{-1}$ to get an equation that will get more usefull later on: 
+Let $\alpha,\beta\in\mathbb{Z}$ with $(\beta,m) = 1$, and let $\beta^{-1}$ be an inverse of $\beta \pmod m$. Applying \ref{item:orthogonality_rel_item:ii} to $a = \alpha \beta^{-1}$, and using $\chi(\beta^{-1}) = \chi(\beta)^{-1} = \overline\chi(\beta)$, we get an equation that will be more useful later on:
 \begin{equation}\label{eq:orthogonality_rel_special_case}
-    \sum_{\chi \mod m}^{} \chi(\alpha \beta^{-1}) =\sum_{\chi \mod m}^{} \chi(\alpha ) \overline\chi(\beta) =\begin{cases}
-                \phi(m) &\text{ if } \alpha \equiv \beta \pmod m \\
-                0 &\text{ if } \alpha \not\equiv \beta \pmod m
-            \end{cases}.
+    \sum_{\chi \bmod m} \chi(\alpha ) \overline\chi(\beta) =\begin{cases}
+                \phi(m) &\text{ if } \alpha \equiv \beta \pmod m, \\
+                0 &\text{ if } \alpha \not\equiv \beta \pmod m.
+            \end{cases}
 \end{equation}

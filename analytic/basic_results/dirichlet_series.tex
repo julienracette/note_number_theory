@@ -1,12 +1,69 @@
 \section{Dirichlet Series}
+In this part, we write $s = \sigma + it$ with $\sigma = \Re(s)$ and $t = \Im(s)$.
 
+\subsection{Euler product}
 \begin{theorem}[Euler product]\label{thm:euler-product}
-    Let $f:\mathbb{N} \to \mathbb{C}$ a bounded multiplicative function then
-    \begin{equation}
-        \sum_{n=1}^{\infty}\frac{a(n)}{n^s} = \prod_{p}\sum_{k=0}^{\infty}\frac{a(p^k)}{p^{ks}} =  \text{ for } \Re(s) > 1.
-    \end{equation}
-    If $f$ is completely multiplicative then we get the geometric series and we can conclude the following:
-    \begin{equation}
-        \sum_{n=1}^{\infty}\frac{a(n)}{n^s} = \prod_{p}\frac{1}{1-f(p) p^{-s}} = \prod_p \left(1- \frac{a(p)}{p^s }\right)^{-1}
-    \end{equation}
+    Let $f:\mathbb{N} \to \mathbb{C}$ be a bounded multiplicative function. Then, for $\Re(s) > 1$,
+    \begin{equation*}
+        \sum_{n=1}^{\infty}\frac{f(n)}{n^s} = \prod_{p}\sum_{k=0}^{\infty}\frac{f(p^k)}{p^{ks}},
+    \end{equation*}
+    where the series and the product are absolutely convergent.
+    If $f$ is completely multiplicative, then $\lvert f(p)\rvert \le 1$ for every prime $p$ and
+    \begin{equation*}
+        \sum_{n=1}^{\infty}\frac{f(n)}{n^s} = \prod_p \left(1- \frac{f(p)}{p^s }\right)^{-1}.
+    \end{equation*}
 \end{theorem}
+\begin{proof}
+    Let $M$ be such that $\lvert f(n)\rvert\le M$ for all $n$. Since $\lvert f(n)n^{-s}\rvert \le Mn^{-\sigma}$ and $\sigma>1$, the series $\sum_n f(n)n^{-s}$ and every local factor $\sum_k f(p^k)p^{-ks}$ converge absolutely.
+
+    Let $y\ge 2$. A finite product of absolutely convergent series can be expanded and rearranged freely. By the fundamental theorem of arithmetic, every integer $n$ whose prime factors are all $\le y$ is written in a unique way as $n = \prod_{p\le y}p^{k_p}$, and $f(n) = \prod_{p \le y}f(p^{k_p})$ by multiplicativity. Hence
+    \begin{equation*}
+        \prod_{p\le y}\sum_{k=0}^{\infty}\frac{f(p^k)}{p^{ks}} = \sum_{\substack{n\ge1 \\ p\mid n \Rightarrow p\le y}}\frac{f(n)}{n^s}.
+    \end{equation*}
+    Every $n\le y$ appears on the right-hand side, so
+    \begin{equation*}
+        \left\lvert\sum_{n=1}^{\infty}\frac{f(n)}{n^s} - \prod_{p\le y}\sum_{k=0}^{\infty}\frac{f(p^k)}{p^{ks}}\right\rvert \le \sum_{n>y}\frac{M}{n^\sigma}\xrightarrow{y\to\infty}0.
+    \end{equation*}
+    The product converges absolutely since $\sum_p\left\lvert\sum_{k\ge1}f(p^k)p^{-ks}\right\rvert \le \sum_{n\ge 2}Mn^{-\sigma}<\infty$.
+
+    If $f$ is completely multiplicative, then $f(p^k) = f(p)^k$ is bounded in $k$, which forces $\lvert f(p)\rvert\le1$. Then $\lvert f(p)p^{-s}\rvert \le p^{-\sigma}<1$ and each local factor is the geometric series $\sum_{k\ge0}\left(f(p)p^{-s}\right)^k = \left(1-f(p)p^{-s}\right)^{-1}$.
+\end{proof}
+
+\subsection{Analytic continuation}
+The next lemma is the tool we use to extend Dirichlet series to a larger half-plane.
+\begin{lemma}\label{lem:holomorphic_integral}
+    Let $g:[1,\infty)\to\mathbb{C}$ be a piecewise continuous function with $\lvert g(t)\rvert \le M$. Then
+    \begin{equation*}
+        F(s) = \int_1^\infty \frac{g(t)}{t^{s+1}}\,dt
+    \end{equation*}
+    is holomorphic in $\Re(s)>0$ and $\lvert F(s)\rvert \le \frac{M}{\sigma}$.
+\end{lemma}
+\begin{proof}
+    For $N\ge1$, let $F_N(s) = \int_1^N g(t)t^{-s-1}\,dt$. Since the integrand is holomorphic in $s$ with derivative $-g(t)(\log t)t^{-s-1}$ bounded on $[1,N]$ locally uniformly in $s$, we can differentiate under the integral sign: $F_N$ is entire. Let $\delta>0$. For $\sigma\ge\delta$,
+    \begin{equation*}
+        \lvert F(s) - F_N(s)\rvert \le M\int_N^\infty t^{-\delta-1}\,dt = \frac{M}{\delta N^\delta}\xrightarrow{N\to\infty}0.
+    \end{equation*}
+    Thus $F_N\to F$ uniformly on $\{\sigma\ge\delta\}$, and a uniform limit of holomorphic functions is holomorphic (Weierstrass). Since $\delta$ is arbitrary, $F$ is holomorphic in $\Re(s)>0$. Finally $\lvert F(s)\rvert \le M\int_1^\infty t^{-\sigma-1}\,dt = M/\sigma$.
+\end{proof}
+
+\begin{definition}[Riemann zeta function]
+    For $\Re(s)>1$, $\displaystyle\zeta(s) := \sum_{n\ge1}\frac{1}{n^s} = \prod_p\left(1-\frac1{p^s}\right)^{-1}$ (by \cref{thm:euler-product}).
+\end{definition}
+
+\begin{proposition}\label{prop:zeta_continuation}
+    For $\Re(s) >1$, we have
+    \begin{equation*}
+        \zeta(s) = \frac{s}{s-1} - s\int_1^\infty\frac{\{t\}}{t^{s+1}}\,dt.
+    \end{equation*}
+    The right-hand side gives a meromorphic continuation of $\zeta$ to $\Re(s)>0$, whose only pole is a simple pole at $s=1$ with residue $1$. Moreover,
+    \begin{equation*}
+        \zeta(\sigma) = \frac{1}{\sigma-1} + O(1), \qquad 1<\sigma\le2.
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    Let $N \ge 2$ be an integer. We apply \cref{thm:Abel_Summation_formula} with $a_n = 1$, $A(t)=\lfloor t\rfloor = t - \{t\}$ and $f(t) = t^{-s}$ on $(1,N]$:
+    \begin{equation*}
+        \sum_{n\le N}\frac 1{n^s} = 1 + \frac{N}{N^s} - 1 + s\int_1^N \frac{t-\{t\}}{t^{s+1}}\,dt = N^{1-s} + \frac{s}{s-1}\left(1-N^{1-s}\right) - s\int_1^N\frac{\{t\}}{t^{s+1}}\,dt.
+    \end{equation*}
+    For $\sigma>1$, $N^{1-s}\to0$ as $N\to\infty$, which gives the formula. By \cref{lem:holomorphic_integral} with $g(t) = \{t\}$, the function $s\int_1^\infty \{t\}t^{-s-1}\,dt$ is holomorphic in $\Re(s)>0$, and $\frac{s}{s-1} = 1 + \frac{1}{s-1}$. Finally, for $1<\sigma\le2$, \cref{lem:holomorphic_integral} gives $\left\lvert\sigma\int_1^\infty\{t\}t^{-\sigma-1}\,dt\right\rvert\le 1$, so $\zeta(\sigma) = \frac{1}{\sigma-1} + O(1)$.
+\end{proof}
