@@ -100,14 +100,20 @@ def main() -> None:
         check=True,
     )
 
-    pdf_link = (
-        '<a href="main.pdf" style="position:absolute;right:1.2rem;top:0.9rem;'
-        'font-size:1rem;text-decoration:none">PDF ⤓</a>'
+    pdf_link = '<a class="pdf-link" href="main.pdf">Download PDF</a>'
+    head_extra = (
+        '<link rel="preconnect" href="https://fonts.googleapis.com" />\n'
+        '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />\n'
+        '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:'
+        'ital,opsz,wght@0,7..72,400;0,7..72,600;0,7..72,700;1,7..72,400;1,7..72,600&display=swap" />\n'
+        '<link rel="stylesheet" href="styles/site.css" />\n'
     )
+    shutil.copy(ROOT / "web" / "style.css", OUT / "styles" / "site.css")
     for html in OUT.glob("*.html"):
         h = html.read_text(encoding="utf-8")
         h = h.replace(SEP, r"\\")
-        h = h.replace("</h1>", "</h1>" + pdf_link, 1) if 'id="doc_title"' in h else h
+        h = h.replace("</head>", head_extra + "</head>", 1)
+        h = h.replace("</header>", pdf_link + "\n</header>", 1)
         html.write_text(h, encoding="utf-8")
 
     pdf = ROOT / "main.pdf"

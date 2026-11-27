@@ -1,0 +1,224 @@
+/* Thème du site — chargé après le thème plasTeX par web/build.py.
+   Couleur principale : le bleu « doc » (RGB 0,60,110) de la page titre du PDF. */
+
+:root {
+  --paper: #fbfcfd;
+  --ink: #17202b;
+  --muted: #5a6675;
+  --doc: #003c6e;
+  --doc-soft: #3f6f9c;
+  --tint: #edf2f7;
+  --rule: #d5dee8;
+  --side: #f4f7fa;
+  --serif: "Literata", "Iowan Old Style", Georgia, serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #12171e;
+    --ink: #dfe5ec;
+    --muted: #93a0ae;
+    --doc: #8fb8e0;
+    --doc-soft: #6f9cc8;
+    --tint: #1a2330;
+    --rule: #2a3544;
+    --side: #0e1318;
+  }
+}
+
+/* ---------- Base ---------- */
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.65;
+  font-optical-sizing: auto;
+}
+
+a { color: var(--doc); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--doc-soft); }
+:focus-visible { outline: 2px solid var(--doc-soft); outline-offset: 2px; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--serif);
+  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- En-tête : le titre et le filet épais de la page titre ---------- */
+body > header {
+  background: var(--paper);
+  color: var(--ink);
+  border-bottom: 4px solid var(--doc);
+  padding: 0.7rem 1.25rem;
+  gap: 0.75rem;
+}
+h1#doc_title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+h1#doc_title a { color: var(--doc); text-decoration: none; }
+svg#toc-toggle { color: var(--doc); cursor: pointer; }
+a.pdf-link {
+  margin-left: auto;
+  font-size: 0.9rem;
+  color: var(--doc);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0.2rem 0.65rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+a.pdf-link:hover { background: var(--tint); }
+
+/* ---------- Table des matières latérale ---------- */
+nav.toc {
+  background: var(--side);
+  border-right: 1px solid var(--rule);
+  padding: 1rem 0.75rem 3rem 1rem;
+  margin-right: 0;
+}
+@media (min-width: 1024px) {
+  nav.toc { max-width: 19rem; width: 19rem; }
+}
+.toc ul li, .toc ul li.current { background: transparent; }
+.toc ul a {
+  font-size: 0.93rem;
+  line-height: 1.35;
+  color: var(--muted);
+  padding: 0.3rem 0.4rem 0.3rem 0.6rem;
+  border-left: 2px solid transparent;
+}
+.toc ul a:hover { background: var(--tint); color: var(--ink); }
+.toc ul.sub-toc-0 > li > a { color: var(--ink); font-weight: 600; margin-top: 0.6rem; }
+.toc ul ul { padding-left: 0.6rem; }
+.toc ul li.current > a {
+  color: var(--doc);
+  font-weight: 600;
+  border-left-color: var(--doc);
+  background: var(--tint);
+}
+.toc span.toc_ref { font-variant-numeric: tabular-nums; margin-right: 0.15rem; }
+.toc span.expand-toc { color: var(--muted); font-size: 0.7rem; cursor: pointer; padding: 0 0.3rem; }
+
+/* ---------- Colonne de lecture ---------- */
+div.content { background: var(--paper); }
+div.content-wrapper { max-width: 44rem; padding: 0 1.5rem 5rem; }
+@media (min-width: 1024px) {
+  div.content { padding: 1.5rem 2.5rem; }
+}
+div.main-text > h1 {
+  font-size: 2.1rem;
+  line-height: 1.2;
+  margin: 1.5rem 0 1.75rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+div.main-text h2 { font-size: 1.4rem; line-height: 1.3; margin: 2.5rem 0 0.75rem; }
+div.main-text h3 { font-size: 1.15rem; margin: 2rem 0 0.5rem; }
+p { margin: 0.8rem 0; }
+
+/* Page d'accueil : titre et filet épais, comme la page titre du PDF */
+.titlepage { text-align: left; margin-top: 2.5rem; }
+.titlepage h1 {
+  font-size: 2.8rem;
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--doc);
+  margin: 0 0 0.6rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 4px solid var(--doc);
+}
+.titlepage p.authors { margin: 0; font-size: 1.1rem; }
+.titlepage + p { color: var(--muted); font-size: 0.95rem; margin-top: 0.2rem; }
+
+nav.local_toc { max-width: 44rem; padding: 0; margin: 2.5rem 0 5rem; }
+nav.local_toc ul { list-style: none; padding-left: 0; margin: 0; }
+nav.local_toc ul ul { padding-left: 1.4rem; }
+nav.local_toc > ul > li {
+  padding: 1rem 0 0.75rem;
+  border-top: 1px solid var(--rule);
+}
+nav.local_toc > ul > li > a { font-size: 1.25rem; font-weight: 600; color: var(--ink); }
+nav.local_toc a { display: inline-block; padding: 0.15rem 0; text-decoration: none; color: var(--doc); }
+nav.local_toc a:hover { text-decoration: underline; }
+nav.local_toc span.toc_ref { color: var(--muted); font-variant-numeric: tabular-nums; margin-right: 0.3rem; }
+
+/* ---------- Théorèmes, lemmes, définitions ---------- */
+div[class*="_thmwrapper"] {
+  margin: 1.6rem 0;
+  padding: 0.9rem 1.1rem 0.6rem;
+  border-left: 3px solid var(--doc);
+  background: var(--tint);
+  border-radius: 0 3px 3px 0;
+}
+div[class$="_thmheading"] { font-weight: 700; color: var(--doc); line-height: 1.4; }
+span[class$="_thmlabel"] { margin-left: 0.35rem; font-variant-numeric: tabular-nums; }
+span[class$="_thmtitle"] { font-weight: 400; color: var(--ink); }
+span[class$="_thmtitle"]::before { content: "("; }
+span[class$="_thmtitle"]::after { content: ")"; }
+div[class$="_thmcontent"] { margin-left: 0; padding-left: 0; padding-top: 0; }
+div[class$="_thmcontent"] > p:first-child { margin-top: 0.35rem; }
+
+/* Lemmes et corollaires : plus discrets que les théorèmes */
+div.lemma_thmwrapper, div.corollary_thmwrapper {
+  background: transparent;
+  border-left-color: var(--doc-soft);
+}
+/* Définitions : encadré fin, sans fond */
+div.definition_thmwrapper {
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--muted);
+  border-radius: 3px;
+}
+div.definition_thmwrapper div[class$="_thmheading"] { color: var(--ink); }
+
+/* ---------- Preuves ---------- */
+div.proof_wrapper { margin: 1rem 0 1.8rem; }
+div.proof_heading {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+}
+span.expand-proof { font-size: 0.7rem; margin-left: 0.3rem; }
+div.proof_content {
+  margin-left: 0;
+  padding: 0.25rem 0 0 1.1rem;
+  border-left: 1px solid var(--rule);
+}
+div.proof_content::after {
+  content: "∎";
+  display: block;
+  text-align: right;
+  color: var(--muted);
+  margin-top: -1.2rem;
+}
+
+/* ---------- Mathématiques ---------- */
+div.displaymath, div.equation { overflow-x: auto; overflow-y: hidden; }
+div.equation p { margin: 0; }
+span.equation_label { color: var(--muted); font-variant-numeric: tabular-nums; }
+mjx-container[display="true"] { margin: 0.9em 0 !important; }
+
+/* ---------- Navigation bas de page ---------- */
+nav.prev_up_next {
+  background: var(--paper);
+  border-top: 1px solid var(--rule);
+  border-left: 1px solid var(--rule);
+  border-radius: 4px 0 0 0;
+}
+nav.prev_up_next a { color: var(--doc); font-size: 1.1rem; }
+nav.prev_up_next svg { width: 1rem; height: 1rem; }
+
+/* ---------- Bibliographie ---------- */
+dl.bibliography dt, div.bibliography dt { color: var(--doc); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
