@@ -1,0 +1,55 @@
+\section{Greatest Common Divisor}
+
+\begin{definition}[Greatest common divisor]\label{def:gcd}
+    Let $a,b \in \mathbb{Z}$, not both zero. The greatest common divisor $(a,b)$ is the largest integer dividing both $a$ and $b$. We say that $a$ and $b$ are coprime if $(a,b) = 1$.
+\end{definition}
+The set of common divisors is non-empty (it contains $1$) and bounded by $\max(|a|,|b|)$ by \cref{prop:divisibility_properties}, so $(a,b)$ exists and $(a,b) \ge 1$.
+
+\begin{theorem}[Bézout's identity]\label{thm:bezout}
+    Let $a,b \in \mathbb{Z}$, not both zero. Then $(a,b)$ is the smallest positive element of
+    \begin{equation*}
+        I = \{ax + by : x,y \in \mathbb{Z}\}.
+    \end{equation*}
+    In particular, there exist $x,y \in \mathbb{Z}$ with $ax + by = (a,b)$, and every common divisor of $a$ and $b$ divides $(a,b)$.
+\end{theorem}
+\begin{proof}
+    The set $I$ contains $a^2 + b^2 > 0$, so it has a smallest positive element $d = ax_0 + by_0$. By \cref{thm:euclidean_division}, write $a = dq + r$ with $0 \le r < d$. Then
+    \begin{equation*}
+        r = a - dq = a(1 - qx_0) + b(-qy_0) \in I,
+    \end{equation*}
+    and the minimality of $d$ forces $r = 0$, so $d \mid a$. In the same way $d \mid b$. If $c$ divides $a$ and $b$, then $c \mid ax_0 + by_0 = d$ by \cref{prop:divisibility_properties} ii), so $c \le d$. Hence $d$ is the greatest common divisor, and every common divisor divides it.
+\end{proof}
+
+\begin{corollary}\label{cor:coprime_bezout}
+    Two integers $a$ and $b$ are coprime if and only if there exist $x,y \in \mathbb{Z}$ with $ax + by = 1$.
+\end{corollary}
+\begin{proof}
+    One direction is \cref{thm:bezout}. Conversely, if $ax + by = 1$, then $(a,b)$ divides $1$, so $(a,b) = 1$.
+\end{proof}
+
+\subsection{The Euclidean algorithm}
+\begin{lemma}\label{lem:gcd_reduction}
+    Let $a,b,q \in \mathbb{Z}$ with $b \neq 0$. Then $(a,b) = (b, a - qb)$.
+\end{lemma}
+\begin{proof}
+    By \cref{prop:divisibility_properties} ii), a common divisor of $a$ and $b$ divides $a - qb$, and a common divisor of $b$ and $a - qb$ divides $a = (a - qb) + qb$. The two pairs have the same common divisors, hence the same greatest one.
+\end{proof}
+
+Let $a \ge b \ge 1$. Set $r_0 = a$, $r_1 = b$ and, as long as $r_k \neq 0$, divide $r_{k-1}$ by $r_k$:
+\begin{equation*}
+    r_{k-1} = q_k r_k + r_{k+1}, \qquad 0 \le r_{k+1} < r_k.
+\end{equation*}
+The remainders strictly decrease, so some $r_{n+1} = 0$. By \cref{lem:gcd_reduction},
+\begin{equation*}
+    (a,b) = (r_0,r_1) = (r_1,r_2) = \dots = (r_n, 0) = r_n,
+\end{equation*}
+so the last non-zero remainder is $(a,b)$. Reading the divisions backwards expresses $(a,b)$ as $ax + by$.
+
+For example, with $a = 252$ and $b = 198$:
+\begin{equation*}
+    252 = 1 \cdot 198 + 54, \quad 198 = 3 \cdot 54 + 36, \quad 54 = 1 \cdot 36 + 18, \quad 36 = 2 \cdot 18,
+\end{equation*}
+so $(252,198) = 18$, and
+\begin{equation*}
+    18 = 54 - 36 = 54 - (198 - 3 \cdot 54) = 4 \cdot 54 - 198 = 4 \cdot 252 - 5 \cdot 198.
+\end{equation*}

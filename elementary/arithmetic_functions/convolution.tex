@@ -1,0 +1,92 @@
+\section{Dirichlet Convolution and Möbius Inversion}
+
+\begin{definition}[Dirichlet convolution]\label{def:dirichlet_convolution}
+    The Dirichlet convolution of two arithmetic functions $f$ and $g$ is
+    \begin{equation*}
+        (f * g)(n) = \sum_{d \mid n} f(d)\, g\!\left(\frac{n}{d}\right) = \sum_{ab = n} f(a) g(b).
+    \end{equation*}
+\end{definition}
+For example, $\tau = \mathbf{1} * \mathbf{1}$, $\sigma = \mathbf{1} * \mathrm{id}$, and \cref{eq:conv_von_mangold} reads $\log = \mathbf{1} * \Lambda$.
+
+\begin{proposition}\label{prop:convolution_ring}
+    The Dirichlet convolution is commutative and associative, and $\varepsilon$ is its identity element. An arithmetic function $f$ has an inverse for $*$ if and only if $f(1) \neq 0$.
+\end{proposition}
+\begin{proof}
+    Commutativity is clear from the symmetric form $\sum_{ab = n}$. For associativity, both $((f*g)*h)(n)$ and $(f*(g*h))(n)$ are equal to
+    \begin{equation*}
+        \sum_{abc = n} f(a) g(b) h(c).
+    \end{equation*}
+    Since $(f * \varepsilon)(n) = f(n)\varepsilon(1) = f(n)$, the function $\varepsilon$ is the identity.
+
+    If $f * g = \varepsilon$, then $f(1)g(1) = 1$, so $f(1) \neq 0$. Conversely, if $f(1) \neq 0$, define $g(1) = 1/f(1)$ and, recursively for $n > 1$,
+    \begin{equation*}
+        g(n) = -\frac{1}{f(1)} \sum_{\substack{d \mid n \\ d < n}} g(d) f\!\left(\frac{n}{d}\right).
+    \end{equation*}
+    This is exactly the condition $(g * f)(n) = 0$ for $n > 1$, so $g * f = \varepsilon$.
+\end{proof}
+
+\begin{proposition}\label{prop:convolution_multiplicative}
+    If $f$ and $g$ are multiplicative, then so is $f * g$.
+\end{proposition}
+\begin{proof}
+    Let $(m,n) = 1$. By \cref{cor:divisors_valuations}, the divisors of $mn$ are exactly the products $d_1 d_2$ with $d_1 \mid m$ and $d_2 \mid n$, each obtained once, and then $(d_1, d_2) = 1$ and $(m/d_1, n/d_2) = 1$. Hence
+    \begin{equation*}
+        (f*g)(mn) = \sum_{d_1 \mid m}\sum_{d_2 \mid n} f(d_1)f(d_2)\, g\!\left(\frac{m}{d_1}\right) g\!\left(\frac{n}{d_2}\right) = (f*g)(m)\,(f*g)(n).
+    \end{equation*}
+\end{proof}
+
+\begin{corollary}\label{cor:tau_sigma}
+    The functions $\tau$ and $\sigma$ are multiplicative, and for $n = \prod_p p^{a_p}$,
+    \begin{equation*}
+        \tau(n) = \prod_{p \mid n} (a_p + 1), \qquad \sigma(n) = \prod_{p \mid n} \frac{p^{a_p + 1} - 1}{p - 1}.
+    \end{equation*}
+\end{corollary}
+\begin{proof}
+    Apply \cref{prop:convolution_multiplicative} to $\tau = \mathbf{1} * \mathbf{1}$ and $\sigma = \mathbf{1} * \mathrm{id}$. The divisors of $p^a$ are $1, p, \dots, p^a$, so $\tau(p^a) = a + 1$ and $\sigma(p^a) = 1 + p + \dots + p^a$.
+\end{proof}
+
+\begin{lemma}\label{lem:mobius_sum}
+    For every $n \ge 1$,
+    \begin{equation*}
+        \sum_{d \mid n} \mu(d) = \varepsilon(n),
+    \end{equation*}
+    that is, $\mu * \mathbf{1} = \varepsilon$.
+\end{lemma}
+\begin{proof}
+    Both sides are multiplicative by \cref{prop:convolution_multiplicative}, so it suffices to compare them at $n = p^k$ with $k \ge 1$. There, $\sum_{d \mid p^k} \mu(d) = \mu(1) + \mu(p) = 1 - 1 = 0 = \varepsilon(p^k)$.
+\end{proof}
+
+\begin{theorem}[Möbius inversion]\label{thm:mobius_inversion}
+    Let $f$ and $g$ be arithmetic functions. Then
+    \begin{equation*}
+        g(n) = \sum_{d \mid n} f(d) \ \text{ for all } n \quad \Longleftrightarrow \quad f(n) = \sum_{d \mid n} \mu(d)\, g\!\left(\frac{n}{d}\right) \ \text{ for all } n.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    The left-hand side says $g = f * \mathbf{1}$ and the right-hand side says $f = g * \mu$. By \cref{prop:convolution_ring} and \cref{lem:mobius_sum}, if $g = f * \mathbf{1}$ then $g * \mu = f * (\mathbf{1} * \mu) = f$, and if $f = g * \mu$ then $f * \mathbf{1} = g * (\mu * \mathbf{1}) = g$.
+\end{proof}
+
+\begin{proposition}[Gauss]\label{prop:sum_phi_divisors}
+    For every $n \ge 1$,
+    \begin{equation*}
+        \sum_{d \mid n} \phi(d) = n.
+    \end{equation*}
+    Equivalently $\phi * \mathbf{1} = \mathrm{id}$, and by Möbius inversion
+    \begin{equation*}
+        \phi(n) = \sum_{d \mid n} \mu(d)\frac{n}{d}, \qquad \text{that is,} \qquad \frac{\phi(n)}{n} = \sum_{d \mid n} \frac{\mu(d)}{d}.
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    Sort the integers $k \in \{1, \dots, n\}$ according to the value of $(k,n)$, which is a divisor of $n$. We have $(k,n) = n/d$ exactly when $k = (n/d)j$ with $1 \le j \le d$ and $(j,d) = 1$, and there are $\phi(d)$ such $j$. Summing over $d \mid n$ counts every $k$ once, so $\sum_{d \mid n}\phi(d) = n$. The other formulas follow from \cref{thm:mobius_inversion}.
+\end{proof}
+Expanding $\sum_{d \mid n} \mu(d)/d$ over the squarefree divisors of $n$ gives $\prod_{p \mid n}(1 - 1/p)$, which recovers \cref{prop:phi_formula}.
+
+\begin{proposition}\label{prop:lambda_mobius}
+    For every $n \ge 1$,
+    \begin{equation*}
+        \Lambda(n) = \sum_{d \mid n} \mu(d) \log\frac{n}{d} = -\sum_{d \mid n} \mu(d) \log d.
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    The first equality is Möbius inversion applied to $\log = \Lambda * \mathbf{1}$ (\cref{eq:conv_von_mangold}). For the second, expand $\log(n/d) = \log n - \log d$ and use $\sum_{d \mid n}\mu(d)\log n = \varepsilon(n)\log n = 0$ for every $n$.
+\end{proof}

@@ -1,0 +1,50 @@
+\section{The Jacobi Symbol}
+
+\begin{definition}[Jacobi symbol]\label{def:jacobi}
+    Let $n \ge 1$ be odd with factorisation $n = p_1 p_2 \cdots p_k$ into (not necessarily distinct) primes. For $a \in \mathbb{Z}$, the Jacobi symbol is
+    \begin{equation*}
+        \left(\frac{a}{n}\right) = \prod_{i=1}^{k} \left(\frac{a}{p_i}\right),
+    \end{equation*}
+    with $\left(\frac{a}{1}\right) = 1$.
+\end{definition}
+When $n$ is prime this is the Legendre symbol. If $(a,n) = 1$ and $a$ is a square modulo $n$, then $a$ is a square modulo every $p_i$, so $\left(\frac{a}{n}\right) = 1$. The converse fails: $\left(\frac{2}{15}\right) = \left(\frac{2}{3}\right)\left(\frac{2}{5}\right) = (-1)(-1) = 1$, but $2$ is not a square modulo $3$, hence not modulo $15$.
+
+\begin{lemma}\label{lem:odd_additive}
+    For odd integers $m$ and $n$,
+    \begin{equation*}
+        \frac{mn - 1}{2} \equiv \frac{m-1}{2} + \frac{n-1}{2} \pmod 2, \qquad \frac{m^2n^2 - 1}{8} \equiv \frac{m^2 - 1}{8} + \frac{n^2 - 1}{8} \pmod 2.
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    The differences are $\frac{(m-1)(n-1)}{2}$ and $\frac{(m^2-1)(n^2-1)}{8}$. Since $m - 1$ and $n - 1$ are even, the first is even. Since $m^2 - 1$ and $n^2 - 1$ are divisible by $8$ (see the proof of \cref{prop:no_primitive_root_power_of_2}), the second is divisible by $8$.
+\end{proof}
+
+\begin{theorem}\label{thm:jacobi_properties}
+    Let $m, n \ge 1$ be odd and $a, b \in \mathbb{Z}$.
+    \begin{enumerate}[label={\upshape\roman*)}]
+        \item $\left(\frac{a}{n}\right)$ depends only on $a$ modulo $n$, and $\left(\frac{ab}{n}\right) = \left(\frac{a}{n}\right)\left(\frac{b}{n}\right)$, $\left(\frac{a}{mn}\right) = \left(\frac{a}{m}\right)\left(\frac{a}{n}\right)$.
+        \item $\left(\frac{-1}{n}\right) = (-1)^{\frac{n-1}{2}}$ and $\left(\frac{2}{n}\right) = (-1)^{\frac{n^2-1}{8}}$.
+        \item If $(m,n) = 1$, then $\left(\frac{m}{n}\right)\left(\frac{n}{m}\right) = (-1)^{\frac{m-1}{2}\cdot\frac{n-1}{2}}$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    \begin{enumerate}[label={\upshape\roman*)}]
+        \item Each factor $\left(\frac{a}{p_i}\right)$ depends only on $a$ modulo $p_i$, hence modulo $n$, and is multiplicative in $a$ by \cref{cor:legendre_multiplicative}. The second identity is immediate from the definition.
+        \item By \cref{cor:legendre_multiplicative} and \cref{prop:legendre_two}, $\left(\frac{-1}{n}\right) = (-1)^{\sum_i \frac{p_i - 1}{2}}$ and $\left(\frac{2}{n}\right) = (-1)^{\sum_i \frac{p_i^2 - 1}{8}}$. By \cref{lem:odd_additive} and induction, these exponents are congruent modulo $2$ to $\frac{n-1}{2}$ and $\frac{n^2-1}{8}$.
+        \item Write $m = \prod_i p_i$ and $n = \prod_j q_j$. Since $(m,n) = 1$, all $p_i$ differ from all $q_j$, and \cref{thm:quadratic_reciprocity} gives
+        \begin{equation*}
+            \left(\frac{m}{n}\right)\left(\frac{n}{m}\right) = \prod_{i,j}\left(\frac{p_i}{q_j}\right)\left(\frac{q_j}{p_i}\right) = (-1)^{\left(\sum_i \frac{p_i-1}{2}\right)\left(\sum_j \frac{q_j-1}{2}\right)}.
+        \end{equation*}
+        By \cref{lem:odd_additive}, the two sums are congruent modulo $2$ to $\frac{m-1}{2}$ and $\frac{n-1}{2}$.
+    \end{enumerate}
+\end{proof}
+
+The Jacobi symbol lets us compute a Legendre symbol without factoring the numerator, by alternating reductions and reciprocity as in the Euclidean algorithm. For example, $383$ is prime and $219 = 3 \cdot 73$, but we never need this factorisation:
+\begin{equation*}
+    \begin{aligned}
+        \left(\frac{219}{383}\right) &= -\left(\frac{383}{219}\right) = -\left(\frac{164}{219}\right) = -\left(\frac{4}{219}\right)\left(\frac{41}{219}\right) = -\left(\frac{41}{219}\right)\\
+        &= -\left(\frac{219}{41}\right) = -\left(\frac{14}{41}\right) = -\left(\frac{2}{41}\right)\left(\frac{7}{41}\right) = -\left(\frac{7}{41}\right)\\
+        &= -\left(\frac{41}{7}\right) = -\left(\frac{6}{7}\right) = -\left(\frac{-1}{7}\right) = 1.
+    \end{aligned}
+\end{equation*}
+We used $219 \equiv 383 \equiv 3 \pmod 4$ in the first step, $41 \equiv 1 \pmod 4$ in the fifth and ninth steps, and $41 \equiv 1 \pmod 8$, $7 \equiv 3 \pmod 4$. Hence $219$ is a quadratic residue modulo $383$.

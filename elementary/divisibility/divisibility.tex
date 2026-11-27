@@ -1,0 +1,35 @@
+\section{Divisibility}
+
+\begin{definition}[Divisibility]\label{def:divisibility}
+    Let $a,b \in \mathbb{Z}$. We say that $a$ divides $b$, and write $a \mid b$, if there exists $c \in \mathbb{Z}$ such that $b = ac$. Otherwise we write $a \nmid b$.
+\end{definition}
+
+\begin{proposition}\label{prop:divisibility_properties}
+    Let $a,b,c \in \mathbb{Z}$.
+    \begin{enumerate}[label={\upshape\roman*)}]
+        \item If $a \mid b$ and $b \mid c$, then $a \mid c$.
+        \item If $a \mid b$ and $a \mid c$, then $a \mid bx + cy$ for all $x,y \in \mathbb{Z}$.
+        \item If $a \mid b$ and $b \neq 0$, then $|a| \le |b|$.
+        \item If $a \mid b$ and $b \mid a$, then $a = \pm b$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}[label={\upshape\roman*)}]
+        \item If $b = ak$ and $c = bl$, then $c = a(kl)$.
+        \item If $b = ak$ and $c = al$, then $bx + cy = a(kx + ly)$.
+        \item If $b = ak$ with $b \neq 0$, then $k \neq 0$, so $|k| \ge 1$ and $|b| = |a||k| \ge |a|$.
+        \item If $a = 0$ then $b = 0$. Otherwise $b \neq 0$ and iii) gives $|a| \le |b| \le |a|$.
+    \end{enumerate}
+\end{proof}
+
+\begin{theorem}[Euclidean division]\label{thm:euclidean_division}
+    Let $a \in \mathbb{Z}$ and $b \ge 1$. There exist unique integers $q$ and $r$ such that
+    \begin{equation*}
+        a = bq + r, \qquad 0 \le r < b.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    \emph{Existence.} The set $S = \{a - bk : k \in \mathbb{Z}\} \cap \mathbb{Z}_{\ge 0}$ is non-empty (take $k = -|a|$). Let $r = a - bq$ be its smallest element. If $r \ge b$, then $r - b = a - b(q+1) \in S$ is smaller than $r$, a contradiction. Hence $0 \le r < b$.
+
+    \emph{Uniqueness.} If $a = bq + r = bq' + r'$ with $0 \le r, r' < b$, then $b \mid r - r'$ and $|r - r'| < b$. By \cref{prop:divisibility_properties} iii), $r = r'$, and then $q = q'$.
+\end{proof}

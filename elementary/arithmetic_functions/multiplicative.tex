@@ -1,0 +1,29 @@
+\section{Multiplicative Functions}
+
+\begin{definition}[Multiplicative function]\label{def:multiplicative}
+    An arithmetic function $f$ is multiplicative if $f(1) = 1$ and $f(mn) = f(m)f(n)$ whenever $(m,n) = 1$. It is completely multiplicative if $f(1) = 1$ and $f(mn) = f(m)f(n)$ for all $m, n \ge 1$.
+\end{definition}
+
+\begin{proposition}\label{prop:multiplicative_prime_powers}
+    A multiplicative function is determined by its values at prime powers: for $n = \prod_p p^{v_p(n)}$,
+    \begin{equation*}
+        f(n) = \prod_{p \mid n} f\left(p^{v_p(n)}\right).
+    \end{equation*}
+    A completely multiplicative function is determined by its values at primes.
+\end{proposition}
+\begin{proof}
+    Distinct prime powers are pairwise coprime, so this follows from \cref{eq:canonical_factorisation} and induction on the number of prime factors of $n$.
+\end{proof}
+
+We will use the following arithmetic functions.
+\begin{itemize}
+    \item $\varepsilon(n) = 1$ if $n = 1$ and $\varepsilon(n) = 0$ otherwise; $\mathbf{1}(n) = 1$; $\mathrm{id}(n) = n$. All three are completely multiplicative.
+    \item The number of divisors $\tau(n) = \sum_{d \mid n} 1$ and the sum of divisors $\sigma(n) = \sum_{d \mid n} d$.
+    \item Euler's function $\phi$, which is multiplicative by \cref{cor:phi_multiplicative}.
+    \item The von Mangoldt function $\Lambda$, with $\Lambda(n) = \log p$ if $n = p^k$, $k \ge 1$, and $\Lambda(n) = 0$ otherwise. It is not multiplicative.
+\end{itemize}
+
+\begin{definition}[Möbius function]\label{def:mobius}
+    The Möbius function is defined by $\mu(1) = 1$, $\mu(n) = (-1)^k$ if $n$ is a product of $k$ distinct primes, and $\mu(n) = 0$ if $p^2 \mid n$ for some prime $p$.
+\end{definition}
+The function $\mu$ is multiplicative: if $(m,n) = 1$, then $mn$ is squarefree exactly when $m$ and $n$ are, and its number of prime factors is the sum of theirs. On prime powers, $\mu(p) = -1$ and $\mu(p^k) = 0$ for $k \ge 2$.

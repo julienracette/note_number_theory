@@ -1,0 +1,58 @@
+\section{Congruences and the Ring $\mathbb{Z}/m\mathbb{Z}$}
+
+\begin{definition}[Congruence]\label{def:congruence}
+    Let $m \ge 1$. We say that $a$ is congruent to $b$ modulo $m$, and write $a \equiv b \pmod m$, if $m \mid a - b$.
+\end{definition}
+
+\begin{proposition}\label{prop:congruence_properties}
+    Congruence modulo $m$ is an equivalence relation. Moreover, if $a \equiv b \pmod m$ and $c \equiv d \pmod m$, then
+    \begin{equation*}
+        a + c \equiv b + d \pmod m \quad \text{and} \quad ac \equiv bd \pmod m.
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    Reflexivity and symmetry are clear, and transitivity follows from $a - c = (a - b) + (b - c)$. For the operations, $(a + c) - (b + d) = (a - b) + (c - d)$ and $ac - bd = a(c - d) + d(a - b)$ are both divisible by $m$.
+\end{proof}
+
+The equivalence class of $a$ is $\overline{a} = a + m\mathbb{Z}$. By \cref{thm:euclidean_division}, every class contains exactly one of $0, 1, \dots, m-1$, so there are $m$ classes. \Cref{prop:congruence_properties} shows that
+\begin{equation*}
+    \overline{a} + \overline{b} := \overline{a + b}, \qquad \overline{a} \cdot \overline{b} := \overline{ab}
+\end{equation*}
+are well defined, which makes the set of classes $\mathbb{Z}/m\mathbb{Z}$ a commutative ring. We write $(\mathbb{Z}/m\mathbb{Z})^\times$ for its group of units, that is, the classes $\overline{a}$ for which some $\overline{b}$ satisfies $\overline{a}\,\overline{b} = \overline{1}$.
+
+\begin{proposition}\label{prop:units_mod_m}
+    The class of $a$ is a unit in $\mathbb{Z}/m\mathbb{Z}$ if and only if $(a,m) = 1$. In particular, $\mathbb{Z}/m\mathbb{Z}$ is a field if and only if $m$ is prime.
+\end{proposition}
+\begin{proof}
+    The class $\overline{a}$ is invertible if and only if $ax \equiv 1 \pmod m$ for some $x$, that is, $ax + my = 1$ for some $x, y$. By \cref{cor:coprime_bezout}, this happens exactly when $(a,m) = 1$. All non-zero classes are units if and only if every $a \in \{1, \dots, m-1\}$ is coprime to $m$, which means that $m$ is prime.
+\end{proof}
+
+\begin{definition}[Euler's totient function]\label{def:euler_phi}
+    For $m \ge 1$, let $\phi(m)$ be the number of integers $a \in \{1, \dots, m\}$ with $(a,m) = 1$. By \cref{prop:units_mod_m}, $\phi(m) = \left|(\mathbb{Z}/m\mathbb{Z})^\times\right|$.
+\end{definition}
+A set of $\phi(m)$ integers representing every class of $(\mathbb{Z}/m\mathbb{Z})^\times$ exactly once is called a reduced residue system modulo $m$. For a prime $p$, $\phi(p) = p - 1$.
+
+\begin{corollary}[Cancellation]\label{cor:cancellation}
+    If $ac \equiv bc \pmod m$ and $(c,m) = 1$, then $a \equiv b \pmod m$.
+\end{corollary}
+\begin{proof}
+    Multiply both sides by an inverse of $c$ modulo $m$, which exists by \cref{prop:units_mod_m}.
+\end{proof}
+
+\subsection{Linear congruences}
+\begin{theorem}\label{thm:linear_congruence}
+    Let $m \ge 1$, $a, b \in \mathbb{Z}$ and $d = (a,m)$. The congruence
+    \begin{equation*}
+        ax \equiv b \pmod m
+    \end{equation*}
+    has a solution if and only if $d \mid b$. In that case it has exactly $d$ solutions modulo $m$.
+\end{theorem}
+\begin{proof}
+    The congruence has a solution if and only if $ax + my = b$ for some integers $x,y$. By \cref{thm:bezout}, the integers of the form $ax + my$ are exactly the multiples of $d$, which proves the first claim.
+
+    Suppose $d \mid b$ and write $a = da'$, $b = db'$, $m = dm'$, so that $(a',m') = 1$. Then $m \mid ax - b$ if and only if $m' \mid a'x - b'$, so the congruence is equivalent to $a'x \equiv b' \pmod{m'}$. Since $a'$ is invertible modulo $m'$, this has a unique solution $x_0$ modulo $m'$. The solutions modulo $m$ are therefore
+    \begin{equation*}
+        x_0,\ x_0 + m',\ x_0 + 2m',\ \dots,\ x_0 + (d-1)m',
+    \end{equation*}
+    and these are pairwise incongruent modulo $m = dm'$.
+\end{proof}

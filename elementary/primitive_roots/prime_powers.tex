@@ -1,0 +1,59 @@
+\section{Primitive Roots Modulo Prime Powers}
+
+\begin{lemma}\label{lem:primitive_root_lift_choice}
+    Let $p$ be an odd prime and $g$ a primitive root modulo $p$. Then $g$ or $g + p$ is a primitive root modulo $p$ that satisfies $x^{p-1} \not\equiv 1 \pmod{p^2}$.
+\end{lemma}
+\begin{proof}
+    Both $g$ and $g + p$ are primitive roots modulo $p$. Suppose $g^{p-1} \equiv 1 \pmod{p^2}$. By the binomial theorem,
+    \begin{equation*}
+        (g + p)^{p-1} \equiv g^{p-1} + (p-1)p\,g^{p-2} \equiv 1 - p\,g^{p-2} \pmod{p^2},
+    \end{equation*}
+    and $p\,g^{p-2} \not\equiv 0 \pmod{p^2}$ because $p \nmid g$.
+\end{proof}
+
+\begin{lemma}\label{lem:lifting_powers}
+    Let $p$ be an odd prime and suppose $g^{p-1} = 1 + pt$ with $p \nmid t$. Then for every $k \ge 1$,
+    \begin{equation*}
+        g^{p^{k-1}(p-1)} = 1 + p^k t_k \qquad \text{with } p \nmid t_k.
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    For $k = 1$ take $t_1 = t$. If the claim holds for $k$, then
+    \begin{equation*}
+        g^{p^{k}(p-1)} = (1 + p^k t_k)^p = 1 + p^{k+1} t_k + \sum_{j=2}^{p} \binom{p}{j} p^{jk} t_k^j.
+    \end{equation*}
+    For $2 \le j \le p - 1$, $p \mid \binom{p}{j}$, so the term is divisible by $p^{2k+1}$. The last term is divisible by $p^{pk}$, and $p \ge 3$. Since $2k + 1 \ge k + 2$ and $pk \ge k + 2$ for $k \ge 1$, the whole sum is divisible by $p^{k+2}$. Hence $g^{p^k(p-1)} = 1 + p^{k+1}t_{k+1}$ with $t_{k+1} \equiv t_k \not\equiv 0 \pmod p$.
+\end{proof}
+
+\begin{theorem}\label{thm:primitive_root_prime_power}
+    Let $p$ be an odd prime and $k \ge 1$. There exists a primitive root modulo $p^k$. If $g$ is a primitive root modulo $p^k$, then whichever of $g$ and $g + p^k$ is odd is a primitive root modulo $2p^k$.
+\end{theorem}
+\begin{proof}
+    Choose $g$ as in \cref{lem:primitive_root_lift_choice}, so that \cref{lem:lifting_powers} applies, and let $n = \ord_{p^k}(g)$. Then $n \mid \phi(p^k) = p^{k-1}(p-1)$. Since $g^n \equiv 1 \pmod p$ and $g$ is a primitive root modulo $p$, we have $p - 1 \mid n$. Hence $n = p^j(p-1)$ for some $0 \le j \le k - 1$.
+
+    If $j \le k - 2$, then $n \mid p^{k-2}(p-1)$ and $g^{p^{k-2}(p-1)} \equiv 1 \pmod{p^k}$. This contradicts \cref{lem:lifting_powers}, which gives $g^{p^{k-2}(p-1)} = 1 + p^{k-1}t_{k-1}$ with $p \nmid t_{k-1}$. So $j = k - 1$ and $g$ is a primitive root modulo $p^k$.
+
+    For the second claim, let $h \in \{g, g + p^k\}$ be odd. Then $h \equiv g \pmod{p^k}$ and $\phi(2p^k) = \phi(p^k)$ by \cref{cor:phi_multiplicative}. Since $h$ is odd, $h^n - 1$ is even for every $n$, so by \cref{thm:crt} $h^n \equiv 1 \pmod{2p^k}$ if and only if $h^n \equiv 1 \pmod{p^k}$. Hence $\ord_{2p^k}(h) = \ord_{p^k}(g) = \phi(2p^k)$.
+\end{proof}
+
+\begin{proposition}\label{prop:no_primitive_root_power_of_2}
+    For $k \ge 3$ and every odd $a$, $a^{2^{k-2}} \equiv 1 \pmod{2^k}$. In particular, there is no primitive root modulo $2^k$ for $k \ge 3$, while $1$ and $3$ are primitive roots modulo $2$ and $4$.
+\end{proposition}
+\begin{proof}
+    For $k = 3$: writing $a = 2b + 1$, we get $a^2 = 4b(b+1) + 1 \equiv 1 \pmod 8$, since $b(b+1)$ is even. If $a^{2^{k-2}} = 1 + 2^k s$, then squaring gives $a^{2^{k-1}} = 1 + 2^{k+1}s + 2^{2k}s^2 \equiv 1 \pmod{2^{k+1}}$, which is the claim for $k + 1$. Since $2^{k-2} < \phi(2^k) = 2^{k-1}$, no odd $a$ has order $\phi(2^k)$.
+\end{proof}
+
+\begin{theorem}\label{thm:primitive_root_classification}
+    A primitive root modulo $m \ge 1$ exists if and only if $m \in \{1, 2, 4\}$, $m = p^k$ or $m = 2p^k$ with $p$ an odd prime and $k \ge 1$.
+\end{theorem}
+\begin{proof}
+    For $m = 1, 2, 4$ take $g = 1, 1, 3$. The cases $p^k$ and $2p^k$ are \cref{thm:primitive_root_prime_power}.
+
+    Conversely, first note that $\phi(n)$ is even for $n > 2$: if an odd prime $p$ divides $n$ then $p - 1 \mid \phi(n)$, and otherwise $n = 2^k$ with $k \ge 2$ and $\phi(n) = 2^{k-1}$. Suppose $m = m_1m_2$ with $(m_1, m_2) = 1$ and $m_1, m_2 > 2$. Let $L$ be the least common multiple of $\phi(m_1)$ and $\phi(m_2)$. Since both are even, $(\phi(m_1),\phi(m_2)) \ge 2$, and \cref{cor:divisors_valuations} gives
+    \begin{equation*}
+        L = \frac{\phi(m_1)\phi(m_2)}{(\phi(m_1),\phi(m_2))} \le \frac{\phi(m)}{2}.
+    \end{equation*}
+    For $(a,m) = 1$, \cref{thm:euler_theorem} gives $a^L \equiv 1$ modulo $m_1$ and modulo $m_2$, hence modulo $m$. So $\ord_m(a) \le \phi(m)/2$ and there is no primitive root.
+
+    If $m$ is not in the list, then either $m = 2^k$ with $k \ge 3$, which is \cref{prop:no_primitive_root_power_of_2}, or $m$ can be split as above: take $m_1 = p^{v_p(m)}$ for an odd prime $p \mid m$ and $m_2 = m/m_1$. Then $m_1 > 2$, and $m_2 > 2$ because $m_2$ is divisible by another odd prime or by $4$.
+\end{proof}

@@ -1,0 +1,34 @@
+\section{Order of an Element}
+
+\begin{definition}[Order]\label{def:order}
+    Let $m \ge 1$ and $(a,m) = 1$. The order of $a$ modulo $m$, denoted $\ord_m(a)$, is the smallest integer $k \ge 1$ such that $a^k \equiv 1 \pmod m$. It exists by \cref{thm:euler_theorem}.
+\end{definition}
+
+\begin{proposition}\label{prop:order_divides}
+    Let $(a,m) = 1$ and $h = \ord_m(a)$. For $n \ge 0$, we have $a^n \equiv 1 \pmod m$ if and only if $h \mid n$. In particular, $\ord_m(a) \mid \phi(m)$, and $a^i \equiv a^j \pmod m$ if and only if $i \equiv j \pmod h$.
+\end{proposition}
+\begin{proof}
+    Write $n = hq + r$ with $0 \le r < h$. Then $a^n = (a^h)^q a^r \equiv a^r \pmod m$, and by minimality of $h$, $a^r \equiv 1$ if and only if $r = 0$. The second claim follows from \cref{thm:euler_theorem}. For the last one, if $i \ge j$, then $a^i \equiv a^j$ is equivalent to $a^{i-j} \equiv 1$ by \cref{cor:cancellation}.
+\end{proof}
+
+\begin{proposition}\label{prop:order_of_power}
+    Let $(a,m) = 1$, $h = \ord_m(a)$ and $k \ge 1$. Then
+    \begin{equation*}
+        \ord_m(a^k) = \frac{h}{(h,k)}.
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    By \cref{prop:order_divides}, $(a^k)^j \equiv 1$ if and only if $h \mid kj$. Dividing by $(h,k)$ and using \cref{thm:gauss_lemma}, this happens if and only if $\frac{h}{(h,k)} \mid j$. The smallest such $j \ge 1$ is $h/(h,k)$.
+\end{proof}
+
+\begin{lemma}\label{lem:order_product}
+    Let $(ab,m) = 1$. If $\ord_m(a) = h$, $\ord_m(b) = k$ and $(h,k) = 1$, then $\ord_m(ab) = hk$.
+\end{lemma}
+\begin{proof}
+    Clearly $(ab)^{hk} \equiv 1$. Conversely, suppose $(ab)^n \equiv 1$. Raising to the power $h$ gives $b^{hn} \equiv 1$, so $k \mid hn$ and therefore $k \mid n$. Symmetrically $h \mid n$, and since $(h,k) = 1$ we get $hk \mid n$.
+\end{proof}
+
+\begin{definition}[Primitive root]\label{def:primitive_root}
+    An integer $g$ with $(g,m) = 1$ is a primitive root modulo $m$ if $\ord_m(g) = \phi(m)$.
+\end{definition}
+By \cref{prop:order_divides}, if $g$ is a primitive root, the powers $g^0, g^1, \dots, g^{\phi(m)-1}$ are pairwise incongruent, so they form a reduced residue system modulo $m$. Thus $g$ is a primitive root exactly when it generates the group $(\mathbb{Z}/m\mathbb{Z})^\times$, which is then cyclic. By \cref{prop:order_of_power}, $g^k$ is again a primitive root if and only if $(k, \phi(m)) = 1$, so when primitive roots exist there are exactly $\phi(\phi(m))$ of them modulo $m$.

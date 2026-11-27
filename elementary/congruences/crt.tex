@@ -1,0 +1,41 @@
+\section{The Chinese Remainder Theorem}
+
+\begin{theorem}[Chinese remainder theorem]\label{thm:crt}
+    Let $m_1, \dots, m_k \ge 1$ be pairwise coprime and $M = m_1 \cdots m_k$. For any $a_1, \dots, a_k \in \mathbb{Z}$, the system
+    \begin{equation*}
+        x \equiv a_i \pmod{m_i}, \qquad 1 \le i \le k,
+    \end{equation*}
+    has a solution, which is unique modulo $M$. Equivalently, the map
+    \begin{equation*}
+        \mathbb{Z}/M\mathbb{Z} \to \mathbb{Z}/m_1\mathbb{Z} \times \dots \times \mathbb{Z}/m_k\mathbb{Z}, \qquad x \bmod M \mapsto (x \bmod m_1, \dots, x \bmod m_k)
+    \end{equation*}
+    is a ring isomorphism.
+\end{theorem}
+\begin{proof}
+    \emph{Existence.} Let $M_i = M/m_i$. Since $m_i$ is coprime to every $m_j$ with $j \neq i$, it is coprime to $M_i$ (a common prime factor would divide some $m_j$ by \cref{cor:euclid_lemma}). Let $y_i$ be an inverse of $M_i$ modulo $m_i$ and set
+    \begin{equation*}
+        x = \sum_{i=1}^{k} a_i M_i y_i.
+    \end{equation*}
+    For $j \neq i$ we have $m_i \mid M_j$, so $x \equiv a_i M_i y_i \equiv a_i \pmod{m_i}$.
+
+    \emph{Uniqueness.} If $x$ and $x'$ are two solutions, every $m_i$ divides $x - x'$. Since the $m_i$ are pairwise coprime, \cref{thm:gauss_lemma} and induction on $k$ give $M \mid x - x'$.
+
+    The map is well defined because each $m_i$ divides $M$, and it respects sums and products by \cref{prop:congruence_properties}. Uniqueness says it is injective, and both sides have $M$ elements, so it is bijective.
+\end{proof}
+
+\begin{corollary}\label{cor:phi_multiplicative}
+    If $(m,n) = 1$, then $(\mathbb{Z}/mn\mathbb{Z})^\times \cong (\mathbb{Z}/m\mathbb{Z})^\times \times (\mathbb{Z}/n\mathbb{Z})^\times$. In particular $\phi(mn) = \phi(m)\phi(n)$.
+\end{corollary}
+\begin{proof}
+    A ring isomorphism maps units onto units, and the units of a product of rings are the elements whose components are all units. Apply this to the isomorphism of \cref{thm:crt}.
+\end{proof}
+
+\begin{proposition}\label{prop:phi_formula}
+    For a prime power, $\phi(p^k) = p^k - p^{k-1}$. For every $n \ge 1$,
+    \begin{equation*}
+        \phi(n) = n \prod_{p \mid n}\left(1 - \frac{1}{p}\right).
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    An integer is coprime to $p^k$ exactly when it is not divisible by $p$. Among $1, \dots, p^k$ there are $p^{k-1}$ multiples of $p$, so $\phi(p^k) = p^k - p^{k-1} = p^k(1 - 1/p)$. The general formula follows from \cref{cor:phi_multiplicative} and the factorisation \cref{eq:canonical_factorisation}.
+\end{proof}

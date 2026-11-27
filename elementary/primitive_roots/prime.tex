@@ -1,0 +1,36 @@
+\section{Primitive Roots Modulo a Prime}
+
+\begin{theorem}[Lagrange]\label{thm:lagrange_roots}
+    Let $p$ be prime and $f \in \mathbb{Z}[x]$ a polynomial of degree $n \ge 0$ whose leading coefficient is not divisible by $p$. Then the congruence $f(x) \equiv 0 \pmod p$ has at most $n$ solutions modulo $p$.
+\end{theorem}
+\begin{proof}
+    We argue by induction on $n$. For $n = 0$, $f$ is a constant not divisible by $p$ and there is no solution. Let $n \ge 1$ and suppose $f(a) \equiv 0 \pmod p$. Dividing $f$ by $x - a$ gives $f(x) = (x - a)g(x) + f(a)$, where $g$ has degree $n - 1$ and the same leading coefficient as $f$. If $f(b) \equiv 0$ with $b \not\equiv a$, then $p \mid (b-a)g(b)$, so $g(b) \equiv 0$ by \cref{cor:euclid_lemma}. By induction there are at most $n - 1$ such $b$, hence at most $n$ roots of $f$ in total.
+\end{proof}
+The hypothesis that $p$ is prime is essential: $x^2 - 1$ has four roots modulo $8$.
+
+\begin{lemma}\label{lem:roots_xd_minus_1}
+    If $d \mid p - 1$, the congruence $x^d \equiv 1 \pmod p$ has exactly $d$ solutions modulo $p$.
+\end{lemma}
+\begin{proof}
+    Write $p - 1 = de$. Then
+    \begin{equation*}
+        x^{p-1} - 1 = (x^d - 1)h(x), \qquad h(x) = x^{d(e-1)} + x^{d(e-2)} + \dots + x^d + 1.
+    \end{equation*}
+    By \cref{cor:fermat}, $x^{p-1} - 1$ has the $p - 1$ roots $1, \dots, p-1$. Each of them is a root of $x^d - 1$ or of $h$ by \cref{cor:euclid_lemma}, and $h$ has at most $p - 1 - d$ roots by \cref{thm:lagrange_roots}. So $x^d - 1$ has at least $d$ roots, and at most $d$ by \cref{thm:lagrange_roots} again.
+\end{proof}
+
+\begin{theorem}\label{thm:primitive_root_prime}
+    Let $p$ be prime. For each $d \mid p - 1$ there are exactly $\phi(d)$ elements of order $d$ modulo $p$. In particular, there are $\phi(p-1) \ge 1$ primitive roots modulo $p$.
+\end{theorem}
+\begin{proof}
+    For $d \mid p - 1$, let $\psi(d)$ be the number of $a \in \{1, \dots, p-1\}$ with $\ord_p(a) = d$. By \cref{prop:order_divides}, the solutions of $x^d \equiv 1$ are the elements whose order divides $d$, so \cref{lem:roots_xd_minus_1} gives
+    \begin{equation*}
+        \sum_{e \mid d} \psi(e) = d \qquad \text{for every } d \mid p - 1.
+    \end{equation*}
+    We show $\psi(d) = \phi(d)$ by strong induction on $d$. For $d = 1$ both are $1$. If the claim holds for all proper divisors of $d$, then \cref{prop:sum_phi_divisors} gives
+    \begin{equation*}
+        \psi(d) = d - \sum_{\substack{e \mid d \\ e < d}} \psi(e) = d - \sum_{\substack{e \mid d \\ e < d}} \phi(e) = \phi(d).
+    \end{equation*}
+    Taking $d = p - 1$ gives the number of primitive roots.
+\end{proof}
+For example, $2$ is a primitive root modulo $11$: its powers modulo $11$ are $2, 4, 8, 5, 10, 9, 7, 3, 6, 1$.

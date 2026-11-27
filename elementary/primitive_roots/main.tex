@@ -1,0 +1,9 @@
+\chapter{Primitive Roots}
+\intro{
+    Euler's theorem says that $a^{\phi(m)} \equiv 1 \pmod m$ for $(a,m) = 1$. The smallest exponent with this property is the order of $a$, and a primitive root is an element whose order is as large as possible, namely $\phi(m)$.
+
+    We prove that a primitive root exists modulo $m$ exactly when $m = 1, 2, 4, p^k$ or $2p^k$ with $p$ an odd prime. In other words, these are the moduli for which $(\mathbb{Z}/m\mathbb{Z})^\times$ is cyclic. The order $\ord_q(p)$ appears in the analytic part when we factor $\prod_\chi L(s,\chi)$.
+}
+\input{elementary/primitive_roots/order.tex}
+\input{elementary/primitive_roots/prime.tex}
+\input{elementary/primitive_roots/prime_powers.tex}

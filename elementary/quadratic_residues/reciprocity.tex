@@ -1,0 +1,53 @@
+\section{Quadratic Reciprocity}
+
+\begin{lemma}\label{lem:eisenstein_parity}
+    Let $a$ be odd with $p \nmid a$, and let $\nu$ be as in \cref{lem:gauss_lemma_legendre}. Then
+    \begin{equation*}
+        \nu \equiv \sum_{k=1}^{\frac{p-1}{2}} \left\lfloor \frac{ka}{p} \right\rfloor \pmod 2.
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    For $k \in S = \left\{1, \dots, \frac{p-1}{2}\right\}$, write $ka = p\left\lfloor \frac{ka}{p} \right\rfloor + t_k$ with $0 < t_k < p$. Let $A$ be the sum of the $t_k$ smaller than $\frac{p}{2}$ and $B$ the sum of the $\nu$ values of $t_k$ greater than $\frac{p}{2}$. The proof of \cref{lem:gauss_lemma_legendre} shows that the numbers $t_k < \frac{p}{2}$ together with the numbers $p - t_k$ for $t_k > \frac{p}{2}$ are exactly the elements of $S$. Therefore
+    \begin{equation*}
+        \sum_{k \in S} k = A + \nu p - B, \qquad a\sum_{k \in S} k = p\sum_{k \in S}\left\lfloor \frac{ka}{p} \right\rfloor + A + B.
+    \end{equation*}
+    Subtracting,
+    \begin{equation*}
+        (a - 1)\sum_{k \in S} k = p\left(\sum_{k \in S}\left\lfloor \frac{ka}{p} \right\rfloor - \nu\right) + 2B.
+    \end{equation*}
+    Since $a$ and $p$ are odd, reducing modulo $2$ gives the claim.
+\end{proof}
+
+\begin{lemma}\label{lem:lattice_points}
+    For distinct odd primes $p$ and $q$,
+    \begin{equation*}
+        \sum_{k=1}^{\frac{p-1}{2}} \left\lfloor \frac{kq}{p} \right\rfloor + \sum_{j=1}^{\frac{q-1}{2}} \left\lfloor \frac{jp}{q} \right\rfloor = \frac{p-1}{2}\cdot\frac{q-1}{2}.
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    Count the lattice points $(x,y)$ with $1 \le x \le \frac{p-1}{2}$ and $1 \le y \le \frac{q-1}{2}$. There are $\frac{p-1}{2}\cdot\frac{q-1}{2}$ of them, and none lies on the line $qx = py$, since that would require $p \mid x$. For fixed $x$, the points below the line are those with $y < \frac{qx}{p}$, and there are $\left\lfloor \frac{qx}{p} \right\rfloor$ of them (note $\frac{qx}{p} < \frac{q}{2}$). For fixed $y$, the points above the line are those with $x < \frac{py}{q}$, and there are $\left\lfloor \frac{py}{q} \right\rfloor$ of them. Adding the two counts gives every point once.
+\end{proof}
+
+\begin{theorem}[Law of quadratic reciprocity]\label{thm:quadratic_reciprocity}
+    For distinct odd primes $p$ and $q$,
+    \begin{equation*}
+        \left(\frac{p}{q}\right)\left(\frac{q}{p}\right) = (-1)^{\frac{p-1}{2}\cdot\frac{q-1}{2}}.
+    \end{equation*}
+    Equivalently, $\left(\frac{p}{q}\right) = \left(\frac{q}{p}\right)$ unless $p \equiv q \equiv 3 \pmod 4$, in which case $\left(\frac{p}{q}\right) = -\left(\frac{q}{p}\right)$.
+\end{theorem}
+\begin{proof}
+    By \cref{lem:gauss_lemma_legendre} and \cref{lem:eisenstein_parity} (applied with $a = q$ modulo $p$, and with $a = p$ modulo $q$),
+    \begin{equation*}
+        \left(\frac{q}{p}\right) = (-1)^{\sum_{k} \lfloor kq/p \rfloor}, \qquad \left(\frac{p}{q}\right) = (-1)^{\sum_{j} \lfloor jp/q \rfloor}.
+    \end{equation*}
+    Multiply and use \cref{lem:lattice_points}. The exponent $\frac{p-1}{2}\cdot\frac{q-1}{2}$ is odd exactly when both factors are odd, that is, when $p \equiv q \equiv 3 \pmod 4$.
+\end{proof}
+
+For example, $\left(\frac{5}{19}\right) = \left(\frac{19}{5}\right) = \left(\frac{4}{5}\right) = 1$, and indeed $9^2 = 81 \equiv 5 \pmod{19}$.
+
+\begin{corollary}\label{cor:legendre_three}
+    For a prime $p > 3$, $3$ is a quadratic residue modulo $p$ if and only if $p \equiv \pm 1 \pmod{12}$.
+\end{corollary}
+\begin{proof}
+    By \cref{thm:quadratic_reciprocity}, $\left(\frac{3}{p}\right) = (-1)^{\frac{p-1}{2}}\left(\frac{p}{3}\right)$. Here $\left(\frac{p}{3}\right) = 1$ if and only if $p \equiv 1 \pmod 3$, and $(-1)^{\frac{p-1}{2}} = 1$ if and only if $p \equiv 1 \pmod 4$. The product is $1$ when $p \equiv 1 \pmod 3$ and $p \equiv 1 \pmod 4$, or $p \equiv 2 \pmod 3$ and $p \equiv 3 \pmod 4$. By \cref{thm:crt}, these are the classes $p \equiv 1$ and $p \equiv 11 \pmod{12}$.
+\end{proof}

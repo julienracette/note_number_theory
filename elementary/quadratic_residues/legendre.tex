@@ -1,0 +1,72 @@
+\section{The Legendre Symbol}
+In this chapter $p$ and $q$ denote odd primes.
+
+\begin{definition}[Quadratic residue, Legendre symbol]\label{def:legendre}
+    Let $p \nmid a$. We say that $a$ is a quadratic residue modulo $p$ if the congruence $x^2 \equiv a \pmod p$ has a solution, and a quadratic non-residue otherwise. The Legendre symbol is
+    \begin{equation*}
+        \left(\frac{a}{p}\right) =
+        \begin{cases}
+            1 & \text{if } p \nmid a \text{ and } a \text{ is a quadratic residue modulo } p,\\
+            -1 & \text{if } p \nmid a \text{ and } a \text{ is a quadratic non-residue modulo } p,\\
+            0 & \text{if } p \mid a.
+        \end{cases}
+    \end{equation*}
+\end{definition}
+By definition, $\left(\frac{a}{p}\right)$ depends only on $a$ modulo $p$.
+
+\begin{proposition}\label{prop:number_of_residues}
+    Exactly $\frac{p-1}{2}$ of the classes $1, 2, \dots, p - 1$ are quadratic residues modulo $p$, namely the classes of $1^2, 2^2, \dots, \left(\frac{p-1}{2}\right)^2$.
+\end{proposition}
+\begin{proof}
+    Every $x \in \{1, \dots, p-1\}$ is congruent to $\pm y$ with $1 \le y \le \frac{p-1}{2}$, and $x^2 \equiv y^2$. So these squares give every quadratic residue. They are pairwise distinct: if $y^2 \equiv z^2$ with $1 \le y, z \le \frac{p-1}{2}$, then $p \mid (y - z)(y + z)$, and $0 < y + z < p$ forces $y = z$.
+\end{proof}
+
+\begin{theorem}[Euler's criterion]\label{thm:euler_criterion}
+    For every $a \in \mathbb{Z}$,
+    \begin{equation*}
+        \left(\frac{a}{p}\right) \equiv a^{\frac{p-1}{2}} \pmod p.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    If $p \mid a$ both sides are $0$. Assume $p \nmid a$ and let $b = a^{(p-1)/2}$. By \cref{cor:fermat}, $b^2 \equiv 1$, so $b \equiv \pm 1$ as in the proof of \cref{thm:wilson}. If $a \equiv x^2$, then $b \equiv x^{p-1} \equiv 1$. Thus the $\frac{p-1}{2}$ quadratic residues are roots of $x^{(p-1)/2} - 1$, which has at most $\frac{p-1}{2}$ roots by \cref{thm:lagrange_roots}. Hence no non-residue is a root, and $b \equiv -1$ for every non-residue $a$.
+\end{proof}
+
+\begin{corollary}\label{cor:legendre_multiplicative}
+    The Legendre symbol is completely multiplicative in $a$:
+    \begin{equation*}
+        \left(\frac{ab}{p}\right) = \left(\frac{a}{p}\right)\left(\frac{b}{p}\right).
+    \end{equation*}
+    Moreover, $\left(\frac{-1}{p}\right) = (-1)^{\frac{p-1}{2}}$, so $-1$ is a quadratic residue modulo $p$ if and only if $p \equiv 1 \pmod 4$.
+\end{corollary}
+\begin{proof}
+    By \cref{thm:euler_criterion}, both sides of each identity are congruent modulo $p$. Both sides lie in $\{-1, 0, 1\}$ and $p \ge 3$, so they are equal.
+\end{proof}
+In particular, $a \mapsto \left(\frac{a}{p}\right)$ is a Dirichlet character modulo $p$ in the sense of \cref{def:dirchar}, and it is not the principal character.
+
+\begin{lemma}[Gauss's lemma]\label{lem:gauss_lemma_legendre}
+    Let $p \nmid a$, and let $\nu$ be the number of $k \in \left\{1, \dots, \frac{p-1}{2}\right\}$ whose least positive residue of $ka$ modulo $p$ is greater than $\frac{p}{2}$. Then
+    \begin{equation*}
+        \left(\frac{a}{p}\right) = (-1)^\nu.
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    Let $S = \left\{1, \dots, \frac{p-1}{2}\right\}$. For $k \in S$, write $ka \equiv \varepsilon_k r_k \pmod p$ with $r_k \in S$ and $\varepsilon_k = \pm 1$, where $\varepsilon_k = -1$ exactly when the least positive residue of $ka$ exceeds $\frac{p}{2}$. If $r_k = r_j$, then $ka \equiv \pm ja$, so $k \equiv \pm j$ by \cref{cor:cancellation}. Since $0 < k + j < p$, this forces $k = j$. So $k \mapsto r_k$ is a bijection of $S$, and multiplying the congruences over $k \in S$ gives
+    \begin{equation*}
+        a^{\frac{p-1}{2}} \left(\frac{p-1}{2}\right)! \equiv (-1)^\nu \left(\frac{p-1}{2}\right)! \pmod p.
+    \end{equation*}
+    Cancelling $\left(\frac{p-1}{2}\right)!$ and applying \cref{thm:euler_criterion} gives the result.
+\end{proof}
+
+\begin{proposition}\label{prop:legendre_two}
+    We have $\left(\frac{2}{p}\right) = (-1)^{\frac{p^2-1}{8}}$. In other words, $2$ is a quadratic residue modulo $p$ if and only if $p \equiv \pm 1 \pmod 8$.
+\end{proposition}
+\begin{proof}
+    For $k \in S$ we have $2k < p$, so $\nu$ counts the $k \in S$ with $2k > \frac{p}{2}$, that is, $\frac{p}{4} < k \le \frac{p-1}{2}$. Hence $\nu = \frac{p-1}{2} - \left\lfloor \frac{p}{4} \right\rfloor$. Writing $p = 8n + r$:
+    \begin{equation*}
+        \begin{aligned}
+            r = 1&: \ \nu = 4n - 2n = 2n, & r = 3&: \ \nu = (4n + 1) - 2n = 2n + 1,\\
+            r = 5&: \ \nu = (4n + 2) - (2n + 1) = 2n + 1, & r = 7&: \ \nu = (4n + 3) - (2n + 1) = 2n + 2.
+        \end{aligned}
+    \end{equation*}
+    So $\nu$ is even exactly when $p \equiv \pm 1 \pmod 8$, which is also exactly when $\frac{p^2 - 1}{8}$ is even. Conclude with \cref{lem:gauss_lemma_legendre}.
+\end{proof}
